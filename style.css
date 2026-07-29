@@ -454,41 +454,6 @@ section {
     font-size: 0.9rem;
 }
 
-.skills-bar-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.skill-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 16px;
-}
-
-.skill-item span {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    min-width: 85px;
-    font-weight: 500;
-}
-
-.bar {
-    flex: 1;
-    height: 6px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.bar .fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent), var(--accent-light));
-    border-radius: 4px;
-    transition: width 1s ease;
-}
-
 .skills-tags {
     display: flex;
     flex-wrap: wrap;
