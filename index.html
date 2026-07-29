@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mahamoud Diabate | Portfolio</title>
+    <title>Mahamoud Diabate | Développeur & IA</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
@@ -28,16 +28,18 @@
         </div>
     </nav>
 
-    <!-- ACCUEIL / HERO -->
+    <!-- HERO -->
     <section id="accueil" class="hero">
+        <div class="hero-bg-particles"></div>
         <div class="container hero-content">
             <div class="hero-text">
-                <p class="hero-greeting">Bonjour, je suis</p>
+                <p class="hero-greeting">Développeur Full-Stack & IA</p>
                 <h1>Mahamoud <span class="highlight">Diabate</span></h1>
-                <p class="hero-title">Étudiant en Informatique à l'Université Laval</p>
+                <p class="hero-title">Python · FastAPI · React/Next.js · RAG · Tkinter</p>
                 <p class="hero-description">
-                    Passionné par le développement logiciel, les moteurs de jeu et l'intelligence artificielle. 
-                    À la recherche d'un stage d'été 2026.
+                    Je construis des applications desktop professionnelles, des APIs backend robustes 
+                    et des systèmes d'IA générative (RAG). 5+ projets livrés, du déploiement 
+                    d'applications métier à la recherche augmentée par LLM.
                 </p>
                 <div class="hero-buttons">
                     <a href="#projets" class="btn btn-primary">Voir mes projets</a>
@@ -45,11 +47,19 @@
                 </div>
                 <div class="hero-socials">
                     <a href="https://github.com/KING2MO123" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/mahamoud-diabate" target="_blank"><i class="fab fa-linkedin"></i></a>
                     <a href="mailto:madia262@ulaval.ca"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
-            <div class="hero-image">
+            <div class="hero-visual">
                 <div class="hero-shape"></div>
+                <div class="hero-shape-2"></div>
+                <div class="hero-code-snippet">
+                    <span class="code-line"><span class="code-keyword">class</span> <span class="code-class">Developer</span>:</span>
+                    <span class="code-line">    name = <span class="code-string">"Mahamoud"</span></span>
+                    <span class="code-line">    stack = [<span class="code-string">"Python"</span>, <span class="code-string">"FastAPI"</span>, <span class="code-string">"React"</span>]</span>
+                    <span class="code-line">    passion = <span class="code-string">"IA & RAG"</span></span>
+                </div>
             </div>
         </div>
     </section>
@@ -60,22 +70,21 @@
             <h2 class="section-title">À propos <span class="highlight">de moi</span></h2>
             <div class="about-grid">
                 <div class="about-card">
-                    <i class="fas fa-graduation-cap"></i>
+                    <div class="about-icon"><i class="fas fa-graduation-cap"></i></div>
                     <h3>Parcours Académique</h3>
-                    <p><strong>Baccalauréat en informatique</strong> — Université Laval (2023-2026)</p>
-                    <p>Cours clés : Programmation C++, Informatique théorique, Logique, Systèmes d'information</p>
-                    <p class="about-secondary"><strong>Baccalauréat en économie</strong> — International University of Grand-Bassam, Côte d'Ivoire (2018-2022)</p>
+                    <p><strong>Baccalauréat en informatique</strong><br>Université Laval, Québec (2023-2026)</p>
+                    <p>Cours clés : Programmation C++, IA, Systèmes d'information, Logique</p>
+                    <p class="about-secondary"><strong>Baccalauréat en économie</strong><br>International University of Grand-Bassam (2018-2022)</p>
                 </div>
                 <div class="about-card">
-                    <i class="fas fa-bullseye"></i>
+                    <div class="about-icon"><i class="fas fa-bullseye"></i></div>
                     <h3>Objectif</h3>
-                    <p>Décrocher un stage en développement logiciel, jeux vidéo ou IA pour l'été 2026. Rigoureux, bilingue et expérimenté en environnement professionnel numérique.</p>
+                    <p>Développeur Full-Stack spécialisé en IA générative et applications desktop métier. Je transforme des besoins réels en solutions logicielles robustes et déployables.</p>
                 </div>
                 <div class="about-card">
-                    <i class="fas fa-language"></i>
-                    <h3>Langues</h3>
-                    <p><strong>Français</strong> — Natif</p>
-                    <p><strong>Anglais</strong> — Courant (professionnel)</p>
+                    <div class="about-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>En bref</h3>
+                    <p>5+ projets sur GitHub, bilingue (FR/EN), autonome et rigoureux. Du desktop (Tkinter/SQLite) au cloud (FastAPI/ChromaDB/Docker).</p>
                 </div>
             </div>
         </div>
@@ -85,43 +94,33 @@
     <section id="competences" class="skills">
         <div class="container">
             <h2 class="section-title">Mes <span class="highlight">compétences</span></h2>
-            <div class="skills-content">
+            <div class="skills-grid">
                 <div class="skills-group">
-                    <h3><i class="fas fa-code"></i> Langages de programmation</h3>
+                    <h3><i class="fas fa-code"></i> Langages</h3>
                     <div class="skills-bar-list">
-                        <div class="skill-item">
-                            <span>C++</span>
-                            <div class="bar"><div class="fill" style="width:85%"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Python</span>
-                            <div class="bar"><div class="fill" style="width:80%"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span>Java</span>
-                            <div class="bar"><div class="fill" style="width:60%"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span>HTML / CSS</span>
-                            <div class="bar"><div class="fill" style="width:75%"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <span>SQL</span>
-                            <div class="bar"><div class="fill" style="width:65%"></div></div>
-                        </div>
+                        <div class="skill-item"><span>Python</span><div class="bar"><div class="fill" style="width:90%"></div></div></div>
+                        <div class="skill-item"><span>C++</span><div class="bar"><div class="fill" style="width:85%"></div></div></div>
+                        <div class="skill-item"><span>JavaScript / TypeScript</span><div class="bar"><div class="fill" style="width:75%"></div></div></div>
+                        <div class="skill-item"><span>HTML / CSS</span><div class="bar"><div class="fill" style="width:80%"></div></div></div>
+                        <div class="skill-item"><span>SQL</span><div class="bar"><div class="fill" style="width:75%"></div></div></div>
+                        <div class="skill-item"><span>Java</span><div class="bar"><div class="fill" style="width:60%"></div></div></div>
                     </div>
                 </div>
                 <div class="skills-group">
-                    <h3><i class="fas fa-tools"></i> Outils</h3>
+                    <h3><i class="fas fa-layer-group"></i> Frameworks & Outils</h3>
                     <div class="skills-tags">
-                        <span>Git</span><span>GitHub</span><span>Linux</span>
-                        <span>VS Code</span><span>NetBeans</span><span>Google Test</span>
+                        <span>FastAPI</span><span>React</span><span>Next.js</span>
+                        <span>Tkinter</span><span>SQLite</span><span>ChromaDB</span>
+                        <span>Docker</span><span>Git/GitHub</span><span>Linux</span>
+                        <span>VS Code</span><span>Google Test</span><span>PyInstaller</span>
                     </div>
                 </div>
                 <div class="skills-group">
-                    <h3><i class="fas fa-microchip"></i> Intérêts tech</h3>
+                    <h3><i class="fas fa-brain"></i> IA & Spécialités</h3>
                     <div class="skills-tags">
-                        <span>Développement logiciel</span><span>Moteurs de jeu</span><span>Intelligence artificielle</span>
+                        <span>LLM / RAG</span><span>OpenAI API</span><span>Vector DB</span>
+                        <span>Prompt Engineering</span><span>Desktop Apps</span><span>ERP/Métier</span>
+                        <span>API Design</span><span>Full-Stack</span>
                     </div>
                 </div>
             </div>
@@ -133,25 +132,71 @@
         <div class="container">
             <h2 class="section-title">Mes <span class="highlight">projets</span></h2>
             <div class="projects-grid">
+
+                <!-- SODIPAC -->
+                <div class="project-card featured">
+                    <div class="project-icon"><i class="fas fa-car"></i></div>
+                    <div class="project-tag-featured">⭐ Pro Principal</div>
+                    <h3>SODIPAC — Gestion Pièces Auto</h3>
+                    <p class="project-meta">2025-2026 · Pro production · Tkinter / SQLite</p>
+                    <p>Application desktop complète de gestion de stock et caisse pour magasin de pièces automobiles. 60+ produits, dashboard KPIs, exports, interface moderne thème Azure. Distribuable en .exe via PyInstaller.</p>
+                    <div class="project-tags">
+                        <span>Python</span><span>Tkinter</span><span>SQLite</span><span>PyInstaller</span>
+                    </div>
+                    <a href="https://github.com/KING2MO123/SODIPAC" target="_blank" class="btn btn-small">Voir sur GitHub <i class="fab fa-github"></i></a>
+                </div>
+
+                <!-- KING2MO-RAG -->
+                <div class="project-card featured">
+                    <div class="project-icon"><i class="fas fa-robot"></i></div>
+                    <div class="project-tag-featured">⭐ IA</div>
+                    <h3>KING2MO-RAG — Recherche Augmentée</h3>
+                    <p class="project-meta">2025 · Pro IA · FastAPI / ChromaDB / Next.js</p>
+                    <p>Système RAG (Retrieval-Augmented Generation) full-stack : API FastAPI avec ChromaDB pour les embeddings vectoriels, frontend Next.js pour l'interface de chat. Recherche sémantique sur documents + génération LLM.</p>
+                    <div class="project-tags">
+                        <span>Python</span><span>FastAPI</span><span>ChromaDB</span><span>Next.js</span><span>OpenAI</span>
+                    </div>
+                    <a href="https://github.com/KING2MO123/KING2MO-RAG" target="_blank" class="btn btn-small">Voir sur GitHub <i class="fab fa-github"></i></a>
+                </div>
+
+                <!-- King2Mo-TechNews -->
+                <div class="project-card">
+                    <div class="project-icon"><i class="fas fa-newspaper"></i></div>
+                    <h3>King2Mo-TechNews — Agrégateur Tech</h3>
+                    <p class="project-meta">2025 · Pro web · API / Aggregation</p>
+                    <p>Agrégateur d'actualités tech en direct — Numerama, The Verge, Hacker News. Interface clean pour suivre l'actualité tech sans distraction.</p>
+                    <div class="project-tags">
+                        <span>JavaScript</span><span>API</span><span>HTML/CSS</span>
+                    </div>
+                    <a href="https://github.com/KING2MO123/king2mo-technews" target="_blank" class="btn btn-small">Voir sur GitHub <i class="fab fa-github"></i></a>
+                </div>
+
+                <!-- Compare-Tech -->
                 <div class="project-card">
                     <div class="project-icon"><i class="fas fa-microchip"></i></div>
-                    <h3>Comparateur d'appareils technologiques</h3>
-                    <p class="project-meta">2024 · Projet personnel</p>
-                    <p>Application web pour comparer des périphériques (ordinateurs, moniteurs, téléphones). Interface intuitive pour structurer et présenter des données techniques complexes.</p>
+                    <h3>Compare-Tech — Comparateur Hardware</h3>
+                    <p class="project-meta">2024-2025 · Full-Stack · React / Node.js / MongoDB</p>
+                    <p>Application web de comparaison de hardware (PC, moniteurs, téléphones). Frontend React + API Backend Node.js/Express/MongoDB. Interface intuitive pour données techniques complexes.</p>
                     <div class="project-tags">
-                        <span>HTML</span><span>CSS</span><span>JavaScript</span>
+                        <span>React</span><span>Node.js</span><span>Express</span><span>MongoDB</span>
                     </div>
-                    <a href="https://github.com/KING2MO123" target="_blank" class="btn btn-small">Voir sur GitHub <i class="fab fa-github"></i></a>
+                    <div class="project-links">
+                        <a href="https://github.com/KING2MO123/Compare-Tech-Frontend" target="_blank" class="btn btn-small">Frontend <i class="fab fa-github"></i></a>
+                        <a href="https://github.com/KING2MO123/compare-tech-backend" target="_blank" class="btn btn-small">Backend <i class="fab fa-github"></i></a>
+                    </div>
                 </div>
+
+                <!-- Gestion Véhicules -->
                 <div class="project-card">
                     <div class="project-icon"><i class="fas fa-truck"></i></div>
-                    <h3>Système de gestion de véhicules — C++</h3>
-                    <p class="project-meta">Hiver 2025 · Projet académique — IFT-1006, Université Laval</p>
-                    <p>Hiérarchie OOP : Véhicule, VéhiculePromenade, Camion, Propriétaire. Polymorphisme, héritage, calcul de taxes, validation de données et tests unitaires Google Test.</p>
+                    <h3>Système de Gestion de Véhicules</h3>
+                    <p class="project-meta">Hiver 2025 · Projet académique · C++ / OOP</p>
+                    <p>Hiérarchie OOP complète : Véhicule, VéhiculePromenade, Camion, Propriétaire. Polymorphisme, héritage, calcul de taxes, validation + tests unitaires Google Test.</p>
                     <div class="project-tags">
                         <span>C++</span><span>OOP</span><span>Google Test</span><span>Linux</span>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -165,8 +210,16 @@
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                         <h3>Agent de services postaux</h3>
-                        <p class="timeline-meta">Postes Canada · Québec, QC · Sept. 2025 – présent</p>
+                        <p class="timeline-meta">Postes Canada · Québec, QC · Sept. 2025 – Présent</p>
                         <p>Systèmes transactionnels Web, suivi logistique, gestion d'envois, transactions financières et conformité des envois internationaux.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Développeur — Projet SODIPAC</h3>
+                        <p class="timeline-meta">Projet indépendant · 2025 – Présent</p>
+                        <p>Conception et développement d'une application desktop de gestion commerciale (stock, caisse, dashboard) pour un magasin de pièces automobiles à Abidjan. Déploiement en production.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
@@ -193,33 +246,39 @@
     <section id="contact" class="contact">
         <div class="container">
             <h2 class="section-title">Me <span class="highlight">contacter</span></h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:madia262@ulaval.ca">madia262@ulaval.ca</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+1 (418) 261-8258</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Québec, QC, Canada</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fab fa-github"></i>
-                        <a href="https://github.com/KING2MO123" target="_blank">github.com/KING2MO123</a>
-                    </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h4>Email</h4>
+                    <a href="mailto:madia262@ulaval.ca">madia262@ulaval.ca</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <h4>Téléphone</h4>
+                    <span>+1 (418) 261-8258</span>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h4>Localisation</h4>
+                    <span>Québec, QC, Canada</span>
+                </div>
+                <div class="contact-card">
+                    <i class="fab fa-github"></i>
+                    <h4>GitHub</h4>
+                    <a href="https://github.com/KING2MO123" target="_blank">KING2MO123</a>
+                </div>
+                <div class="contact-card">
+                    <i class="fab fa-linkedin"></i>
+                    <h4>LinkedIn</h4>
+                    <a href="https://www.linkedin.com/in/mahamoud-diabate" target="_blank">mahamoud-diabate</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 Mahamoud Diabate. Tous droits réservés.</p>
+            <p>&copy; 2026 Mahamoud Diabate — Construisons quelque chose ensemble.</p>
         </div>
     </footer>
 
