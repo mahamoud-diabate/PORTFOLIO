@@ -1,65 +1,60 @@
 # Portfolio — Mahamoud Diabate
 
-Portfolio personnel construit avec Next.js, TypeScript et Tailwind CSS, exporté en site statique.
+Portfolio personnel moderne et minimaliste construit avec Next.js 15, TypeScript et Tailwind CSS.
 
-**En ligne :** https://mahamoud-diabate.github.io/portfolio/
+## Stack technique
 
-## Stack
-
-- **Next.js 15** en App Router, export statique (`output: "export"`)
-- **TypeScript**
-- **Tailwind CSS**
-- **lucide-react** pour les icônes
+- **Framework :** [Next.js 15](https://nextjs.org/) (App Router)
+- **Langage :** [TypeScript](https://www.typescriptlang.org/)
+- **Styles :** [Tailwind CSS](https://tailwindcss.com/)
+- **Icônes :** [Lucide React](https://lucide.dev/)
+- **Hébergement :** [Vercel](https://vercel.com/)
 
 ## Fonctionnalités
 
-- **Bilingue FR / EN** — bascule instantanée, choix mémorisé, détection de la langue du navigateur
-- **Thème clair / sombre** — sombre par défaut, sans flash au chargement
-- **Palette de commandes** (`Ctrl/Cmd + K`) pour naviguer, changer de langue ou de thème
-- **Copie du courriel** en un clic
-- Balises Open Graph et JSON-LD pour le partage et le référencement
+- **Bilingue FR / EN** — bascule instantanée, persistance du choix et détection automatique.
+- **Thème clair / sombre** — mode sombre par défaut, mémorisé sans flash de rendu (FOUC).
+- **Palette de commandes** (`Ctrl/Cmd + K`) pour la navigation, la sélection de thème et de langue.
+- **Actions rapides** — téléchargement direct du CV en PDF et copie du courriel en un clic.
+- **SEO & Référencement** — métadonnées dynamiques, Open Graph et balisage structuré.
 
-## Développement
+## Développement local
 
 ```bash
+# Installation des dépendances
 npm install
+
+# Lancement du serveur local (http://localhost:3000)
 npm run dev
-```
 
-Le site tourne sur http://localhost:3000. En développement le préfixe d'URL est vide ; à la compilation il devient `/portfolio` pour correspondre à GitHub Pages.
-
-```bash
+# Vérification du build de production
 npm run build
 ```
 
-L'export statique est généré dans `out/`.
-
 ## Déploiement
 
-Le workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) compile et publie sur GitHub Pages à chaque envoi sur `main`. Il faut activer Pages en source **GitHub Actions** dans les réglages du dépôt.
+Le site est configuré pour un déploiement continu sur **Vercel** :
+1. Importer le dépôt GitHub sur Vercel.
+2. Tout push sur la branche `main` déclenche automatiquement un nouveau déploiement.
 
-Le fichier `public/.nojekyll` est indispensable : sans lui, Jekyll ignore le dossier `_next/` et tous les scripts et styles renvoient une erreur 404.
+*(Optionnel)* Pour configurer votre propre nom de domaine, définissez la variable d'environnement `NEXT_PUBLIC_SITE_URL` sur votre URL finale.
 
-## Structure
+## Structure du projet
 
 ```
-src/app/          layout, page, styles globaux
-src/components/   composants de section
-src/data/         contenu du portfolio, centralisé et bilingue
-public/images/    captures des projets (WebP avec repli JPEG)
-backup-vanilla/   anciennes versions en HTML/CSS/JS
+src/app/          # Layout racine, page principale et styles globaux
+src/components/   # Composants UI (Header, CommandPalette, Bento, Sections...)
+src/data/         # Données centralisées du portfolio (portfolio-data.ts)
+public/           # Actifs statiques (CV, favicon, og-image, captures)
 ```
 
-Tout le contenu — profil, projets, expérience, formation, stack — vit dans [`src/data/portfolio-data.ts`](src/data/portfolio-data.ts). C'est le seul fichier à modifier pour mettre le portfolio à jour.
-
-## Captures des projets
-
-Les captures de SODIPAC proviennent d'une base de démonstration à données fictives : aucune donnée client réelle n'est exposée.
+Toutes les informations (profil, projets, compétences, expériences) sont centralisées dans [`src/data/portfolio-data.ts`](src/data/portfolio-data.ts).
 
 ## Crédits
 
-La mise en page s'inspire de [chanhdai.com](https://chanhdai.com) par Chánh Đại ([ncdai/chanhdai.com](https://github.com/ncdai/chanhdai.com)), sous licence MIT. Conformément à la demande de l'auteur, aucune de ses informations personnelles ni de sa marque n'est reprise.
+Conception visuelle inspirée par [chanhdai.com](https://chanhdai.com) (par Chánh Đại, licence MIT).
 
 ## Licence
 
-MIT — voir [LICENSE](LICENSE).
+[MIT](LICENSE) © Mahamoud Diabate
+
