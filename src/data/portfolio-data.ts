@@ -67,12 +67,12 @@ export const PORTFOLIO_DATA = {
   about: {
     fr: [
       "Je suis **Mahamoud Diabate** — étudiant en informatique à l'Université Laval et développeur passionné par les systèmes fiables, l'IA générative et le design d'interface soigné.",
-      "J'aime concevoir des architectures complètes, du backend robuste à la distribution autonome : créateur de [SODIPAC](https://github.com/mahamoud-diabate/SODIPAC) (ERP testé en conditions réelles avec 319 tests automatisés), du [Moteur RAG local](https://github.com/mahamoud-diabate/local-agentic-rag) (100% hors-ligne avec streaming SSE) et de [Compare-Tech](https://compare-tech-frontend.vercel.app) (440 produits benchmarkés).",
+      "J'aime concevoir des architectures complètes, du backend robuste à la distribution autonome : créateur de [SODIPAC](https://github.com/mahamoud-diabate/SODIPAC) (ERP testé en conditions réelles avec 319 tests automatisés), du [Moteur RAG local](https://github.com/mahamoud-diabate/local-agentic-rag) (100% hors-ligne avec streaming SSE) et de [Compare-Tech](https://compare-tech-king2mos-projects.vercel.app) (440 produits benchmarkés).",
       "Actuellement à la recherche d'un **stage en développement logiciel pour l'été 2027** à Québec ou en télétravail.",
     ],
     en: [
       "I’m **Mahamoud Diabate** — Computer Science student at Université Laval and developer passionate about reliable distributed systems, generative AI, and meticulous UI craftsmanship.",
-      "I design end-to-end architectures from robust backends to standalone distribution: creator of [SODIPAC](https://github.com/mahamoud-diabate/SODIPAC) (enterprise ERP with 319 automated tests), [Local RAG Engine](https://github.com/mahamoud-diabate/local-agentic-rag) (100% offline with SSE streaming), and [Compare-Tech](https://compare-tech-frontend.vercel.app) (440 benchmarked products).",
+      "I design end-to-end architectures from robust backends to standalone distribution: creator of [SODIPAC](https://github.com/mahamoud-diabate/SODIPAC) (enterprise ERP with 319 automated tests), [Local RAG Engine](https://github.com/mahamoud-diabate/local-agentic-rag) (100% offline with SSE streaming), and [Compare-Tech](https://compare-tech-king2mos-projects.vercel.app) (440 benchmarked products).",
       "Currently seeking a **software engineering internship for Summer 2027** in Quebec City or remote.",
     ],
   },
@@ -150,7 +150,7 @@ export const PORTFOLIO_DATA = {
         fr: "Plateforme web de comparaison de matériel informatique (CPUs, GPUs, Laptops, Smartphones) basée sur des benchmarks réels avec graphiques comparatifs radar.",
         en: "Hardware benchmark comparison platform (CPUs, GPUs, Laptops, Smartphones) powered by real-world multi-source scores and side-by-side radar charts.",
       },
-      urlLabel: "https://compare-tech-frontend.vercel.app",
+      urlLabel: "https://compare-tech-king2mos-projects.vercel.app",
       image: "/images/compare-tech-home.webp",
       highlights: {
         fr: [
@@ -166,7 +166,7 @@ export const PORTFOLIO_DATA = {
       },
       tags: ["React", "Node.js", "Express", "MongoDB", "Vercel"],
       links: {
-        demo: "https://compare-tech-frontend.vercel.app",
+        demo: "https://compare-tech-king2mos-projects.vercel.app",
         code: "https://github.com/mahamoud-diabate/compare-tech",
       },
     },
