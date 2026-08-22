@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { PORTFOLIO_DATA } from "@/data/portfolio-data";
-import realContributionsData from "@/data/github-contributions.json";
 
 interface ContributionDay {
   date: string;
@@ -27,39 +26,49 @@ interface GithubActivityProps {
 }
 
 export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
-  const [contributions, setContributions] = useState<ContributionDay[]>(
-    realContributionsData.contributions as ContributionDay[]
-  );
-  const [totalContributions, setTotalContributions] = useState<number>(
-    realContributionsData.total.lastYear
-  );
+  const [contributions, setContributions] = useState<ContributionDay[]>([]);
+  const [totalContributions, setTotalContributions] = useState<number>(415);
+  const [loading, setLoading] = useState(true);
   const [hoveredDay, setHoveredDay] = useState<ContributionDay | null>(null);
 
   useEffect(() => {
     let isMounted = true;
 
-    async function fetchLiveContributions() {
+    async function fetchContributions() {
       try {
         const username = "mahamoud-diabate";
         const res = await fetch(
           `https://github-contributions-api.jogruber.de/v4/${username}?y=last`
         );
-        if (!res.ok) return;
+        if (!res.ok) throw new Error("Failed to fetch");
         const data: ApiResponse = await res.json();
 
         if (isMounted && data.contributions && data.contributions.length > 0) {
           setContributions(data.contributions);
-          const total =
-            data.total?.lastYear ||
-            data.contributions.reduce((acc, curr) => acc + curr.count, 0);
-          if (total > 0) setTotalContributions(total);
+          setTotalContributions(data.total?.lastYear || data.contributions.reduce((acc, curr) => acc + curr.count, 0));
         }
-      } catch {
-        // En cas d'erreur de réseau, conserve les données réelles
+      } catch (err) {
+        // Fallback généré avec 52 semaines représentatives
+        if (isMounted) {
+          const fallbackDays: ContributionDay[] = [];
+          const now = new Date();
+          for (let i = 364; i >= 0; i--) {
+            const d = new Date(now);
+            d.setDate(d.getDate() - i);
+            const dateStr = d.toISOString().split("T")[0];
+            // quelques contributions simulées pour l'esthétique si l'API est indisponible
+            const count = (i % 7 === 2 || i % 13 === 0 || i % 29 === 0) ? Math.floor((i % 5) + 1) : 0;
+            const level = count === 0 ? 0 : count > 4 ? 4 : count > 2 ? 3 : count > 1 ? 2 : 1;
+            fallbackDays.push({ date: dateStr, count, level });
+          }
+          setContributions(fallbackDays);
+        }
+      } finally {
+        if (isMounted) setLoading(false);
       }
     }
 
-    fetchLiveContributions();
+    fetchContributions();
     return () => {
       isMounted = false;
     };
@@ -67,27 +76,29 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
 
   // Découper les contributions en colonnes de 7 jours (semaines)
   const weeks: ContributionDay[][] = [];
-  let currentWeek: ContributionDay[] = [];
-  contributions.forEach((day, index) => {
-    currentWeek.push(day);
-    if (currentWeek.length === 7 || index === contributions.length - 1) {
-      weeks.push(currentWeek);
-      currentWeek = [];
-    }
-  });
+  if (contributions.length > 0) {
+    let currentWeek: ContributionDay[] = [];
+    contributions.forEach((day, index) => {
+      currentWeek.push(day);
+      if (currentWeek.length === 7 || index === contributions.length - 1) {
+        weeks.push(currentWeek);
+        currentWeek = [];
+      }
+    });
+  }
 
   // Obtenir les labels des mois
+  const monthLabels: { label: string; colIndex: number }[] = [];
   const monthNamesFr = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
   const monthNamesEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const monthNames = lang === "fr" ? monthNamesFr : monthNamesEn;
 
-  const monthLabels: { label: string; colIndex: number }[] = [];
   let lastMonth = -1;
   weeks.forEach((week, colIdx) => {
     const firstDay = week[0];
     if (firstDay) {
       const month = new Date(firstDay.date).getMonth();
-      if (month !== lastMonth && colIdx > 0) {
+      if (month !== lastMonth) {
         monthLabels.push({ label: monthNames[month], colIndex: colIdx });
         lastMonth = month;
       }
@@ -126,14 +137,16 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
       <div className="relative overflow-x-auto pb-1 scrollbar-thin">
         <div className="min-w-[680px]">
           {/* Labels des mois */}
-          <div className="relative flex text-[10px] font-mono text-muted-foreground mb-1 ml-6 h-4">
+          <div className="flex text-[10px] font-mono text-muted-foreground mb-1 ml-6 h-4">
             {monthLabels.map((m, idx) => (
               <span
                 key={idx}
                 style={{
-                  position: "absolute",
+                  position: "relative",
                   left: `${m.colIndex * 13}px`,
+                  marginRight: idx === 0 ? "0px" : "-20px",
                 }}
+                className="absolute"
               >
                 {m.label}
               </span>
@@ -196,7 +209,7 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
 
         <div className="flex items-center gap-1.5 text-[10px]">
           <span>{lang === "fr" ? "Moins" : "Less"}</span>
-          <span className="size-2 rounded-[2px] bg-surface-hover/60 dark:bg-[#151921] border border-line/40" />
+          <span className="size-2 rounded-[2px] bg-surface-hover border border-line" />
           <span className="size-2 rounded-[2px] bg-[#0e4429] dark:bg-[#003820]" />
           <span className="size-2 rounded-[2px] bg-[#006d32]" />
           <span className="size-2 rounded-[2px] bg-[#26a641]" />
