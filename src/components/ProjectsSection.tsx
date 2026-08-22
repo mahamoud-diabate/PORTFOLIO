@@ -110,19 +110,9 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
 
               {p.image ? (
                 <div className="overflow-hidden rounded-lg border border-line bg-background transition-colors hover:border-line-strong">
-                  <div className="flex items-center gap-1.5 border-b border-line bg-surface px-3 py-1.5">
-                    <span className="size-2 rounded-full bg-line-strong" />
-                    <span className="size-2 rounded-full bg-line-strong" />
-                    <span className="size-2 rounded-full bg-line-strong" />
-                    {p.urlLabel && (
-                      <span className="ml-2 font-mono text-[11px] text-muted-foreground truncate">
-                        {p.urlLabel}
-                      </span>
-                    )}
-                  </div>
                   {p.video ? (
                     <video
-                      className="aspect-video w-full object-cover"
+                      className="aspect-video w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.04]"
                       autoPlay
                       muted
                       loop
@@ -146,7 +136,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                     <img
                       src={p.image}
                       alt={p.title[lang]}
-                      className="aspect-video w-full object-cover grayscale-[15%] transition-all duration-300 group-hover:grayscale-0"
+                      className="aspect-video w-full object-cover grayscale-[15%] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-[1.04]"
                       loading="lazy"
                     />
                   )}
