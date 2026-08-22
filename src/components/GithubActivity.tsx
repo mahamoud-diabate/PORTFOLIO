@@ -137,16 +137,14 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
       <div className="relative overflow-x-auto pb-1 scrollbar-thin">
         <div className="min-w-[680px]">
           {/* Labels des mois */}
-          <div className="flex text-[10px] font-mono text-muted-foreground mb-1 ml-6 h-4">
+          <div className="relative flex text-[10px] font-mono text-muted-foreground mb-1.5 ml-7 h-4">
             {monthLabels.map((m, idx) => (
               <span
                 key={idx}
                 style={{
-                  position: "relative",
-                  left: `${m.colIndex * 13}px`,
-                  marginRight: idx === 0 ? "0px" : "-20px",
+                  position: "absolute",
+                  left: `${m.colIndex * 15.5}px`,
                 }}
-                className="absolute"
               >
                 {m.label}
               </span>
@@ -154,27 +152,27 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
           </div>
 
           {/* Grille avec labels des jours */}
-          <div className="flex gap-1.5 items-start">
-            <div className="flex flex-col gap-[3px] text-[9px] font-mono text-muted-foreground pt-0.5 select-none w-5">
-              <span className="h-[10px] leading-[10px]"></span>
-              <span className="h-[10px] leading-[10px]">{lang === "fr" ? "Lun" : "Mon"}</span>
-              <span className="h-[10px] leading-[10px]"></span>
-              <span className="h-[10px] leading-[10px]">{lang === "fr" ? "Mer" : "Wed"}</span>
-              <span className="h-[10px] leading-[10px]"></span>
-              <span className="h-[10px] leading-[10px]">{lang === "fr" ? "Ven" : "Fri"}</span>
-              <span className="h-[10px] leading-[10px]"></span>
+          <div className="flex gap-2 items-start">
+            <div className="flex flex-col gap-[3.5px] text-[9px] font-mono text-muted-foreground pt-0.5 select-none w-5">
+              <span className="h-[12px] sm:h-[13px] leading-[12px] sm:leading-[13px]"></span>
+              <span className="h-[12px] sm:h-[13px] leading-[12px] sm:leading-[13px]">{lang === "fr" ? "Lun" : "Mon"}</span>
+              <span className="h-[12px] sm:h-[13px] leading-[12px] sm:leading-[13px]"></span>
+              <span className="h-[12px] sm:h-[13px] leading-[12px] sm:leading-[13px]">{lang === "fr" ? "Mer" : "Wed"}</span>
+              <span className="h-[12px] sm:h-[13px] leading-[12px] sm:leading-[13px]"></span>
+              <span className="h-[12px] sm:h-[13px] leading-[12px] sm:leading-[13px]">{lang === "fr" ? "Ven" : "Fri"}</span>
+              <span className="h-[12px] sm:h-[13px] leading-[12px] sm:leading-[13px]"></span>
             </div>
 
-            <div className="flex gap-[3px] flex-1">
+            <div className="flex gap-[3.5px] flex-1">
               {weeks.map((week, wIdx) => (
-                <div key={wIdx} className="flex flex-col gap-[3px]">
+                <div key={wIdx} className="flex flex-col gap-[3.5px]">
                   {week.map((day, dIdx) => (
                     <div
                       key={dIdx}
                       onMouseEnter={() => setHoveredDay(day)}
                       onMouseLeave={() => setHoveredDay(null)}
                       title={`${day.count} contributions on ${day.date}`}
-                      className={`size-[10px] sm:size-[11px] rounded-[2px] border transition-transform duration-100 hover:scale-125 cursor-pointer ${getCellColor(
+                      className={`size-[12px] sm:size-[13px] rounded-[2.5px] border transition-transform duration-100 hover:scale-125 cursor-pointer ${getCellColor(
                         day.level
                       )}`}
                     />
