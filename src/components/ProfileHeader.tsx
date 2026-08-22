@@ -20,18 +20,18 @@ export const ProfileHeader: React.FC<ProfileHeaderProps> = ({ lang }) => {
   };
 
   return (
-    <section className="p-5 md:p-6">
+    <section className="p-5 md:p-6 border-b border-line bg-background relative">
       <div className="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-4 sm:gap-5 items-center">
-        <div className="relative size-[72px]">
+        <div className="relative size-[76px] -mt-12 sm:-mt-14 z-20">
           <img
             src="https://avatars.githubusercontent.com/u/190803730?v=4"
             alt={PORTFOLIO_DATA.profile.name}
-            className="size-full rounded-full border border-line-strong object-cover shadow-md"
+            className="size-full rounded-full border-2 border-background object-cover shadow-xl ring-1 ring-line-strong"
             onError={(e) => {
               (e.target as HTMLElement).style.display = "none";
             }}
           />
-          <div className="pointer-events-none absolute -inset-1 rounded-full border border-dashed border-accent opacity-60 animate-[spin_24s_linear_infinite]" />
+          <div className="pointer-events-none absolute -inset-1.5 rounded-full border border-dashed border-accent/60 animate-[spin_32s_linear_infinite]" />
         </div>
 
         <div className="flex flex-col gap-1">

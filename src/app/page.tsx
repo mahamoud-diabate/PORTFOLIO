@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { ProfileHeader } from "@/components/ProfileHeader";
-import { IsometricBlueprint } from "@/components/IsometricBlueprint";
+import { IsometricHero } from "@/components/IsometricHero";
 import { OverviewBento } from "@/components/OverviewBento";
 import { SocialBar } from "@/components/SocialBar";
 import { GithubActivity } from "@/components/GithubActivity";
@@ -68,8 +68,8 @@ export default function Home() {
       />
 
       <main>
+        <IsometricHero />
         <ProfileHeader lang={lang} />
-        <IsometricBlueprint />
         <OverviewBento lang={lang} onCopy={handleCopy} />
         <SocialBar lang={lang} />
         <GithubActivity lang={lang} />
