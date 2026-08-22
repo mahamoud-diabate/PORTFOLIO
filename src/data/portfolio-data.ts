@@ -8,7 +8,6 @@ export interface Project {
   urlLabel?: string;
   image: string;
   video?: { poster: string; mp4: string; webm: string };
-  screenshots?: string[];
   highlights: { fr: string[]; en: string[] };
   tags: string[];
   links?: {
@@ -103,12 +102,6 @@ export const PORTFOLIO_DATA = {
       },
       image: "/images/sopauto-dashboard.webp",
       video: { poster: "/images/sopauto-caisse-poster.jpg", mp4: "/videos/sopauto-caisse.mp4", webm: "/videos/sopauto-caisse.webm" },
-      screenshots: [
-        "/images/sopauto-stock.webp",
-        "/images/sopauto-analyse.webp",
-        "/images/sopauto-creances.webp",
-        "/images/sopauto-produits.webp",
-      ],
       highlights: {
         fr: [
           "Architecture modulaire de 18 modules appuyée sur SQLite (**23 tables relationnelles, 33 index**).",
@@ -141,12 +134,6 @@ export const PORTFOLIO_DATA = {
       },
       image: "/images/synkortex-chat.webp",
       video: { poster: "/images/synkortex-chat-poster.jpg", mp4: "/videos/synkortex-chat.mp4", webm: "/videos/synkortex-chat.webm" },
-      screenshots: [
-        "/images/synkortex-parametres.webp",
-        "/images/synkortex-local.webp",
-        "/images/synkortex-web.webp",
-        "/images/synkortex-clair.webp",
-      ],
       highlights: {
         fr: [
           "Confidentialité totale des données grâce à une exécution 100 % locale (embeddings FastEmbed, LLM agnostique : Gemini, DeepSeek, Ollama ou endpoint OpenAI).",
@@ -180,12 +167,6 @@ export const PORTFOLIO_DATA = {
       urlLabel: "https://compare-tech-king2mos-projects.vercel.app",
       image: "/images/compare-tech-home.webp",
       video: { poster: "/images/compare-tech-poster.jpg", mp4: "/videos/compare-tech.mp4", webm: "/videos/compare-tech.webm" },
-      screenshots: [
-        "/images/compare-cpus.webp",
-        "/images/compare-gpus.webp",
-        "/images/compare-laptops.webp",
-        "/images/compare-phones.webp",
-      ],
       highlights: {
         fr: [
           "440 produits indexés (136 processeurs, 104 cartes graphiques, 100 PC portables, 100 smartphones).",

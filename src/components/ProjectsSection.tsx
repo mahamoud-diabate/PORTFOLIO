@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ExternalLink, Box, Activity, Cpu, Code2, Terminal, X, ChevronLeft, ChevronRight } from "lucide-react";
-import { PORTFOLIO_DATA } from "@/data/portfolio-data";
+import { ExternalLink, Box, Activity, Cpu, Code2, Terminal, X } from "lucide-react";
+import { PORTFOLIO_DATA, Project } from "@/data/portfolio-data";
 
 interface ProjectsSectionProps {
   lang: "fr" | "en";
@@ -10,19 +10,9 @@ interface ProjectsSectionProps {
 
 type FilterType = "all" | "systems" | "ai" | "web";
 
-type LightboxState =
-  | { kind: "video"; title: string; poster: string; mp4: string; webm: string }
-  | { kind: "image"; title: string; src: string }
-  | null;
-
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
   const [filter, setFilter] = useState<FilterType>("all");
-  const [lightbox, setLightbox] = useState<LightboxState>(null);
-
-  const scrollStrip = (projectId: string, dir: number) => {
-    const el = document.getElementById(`screens-${projectId}`);
-    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: "smooth" });
-  };
+  const [lightbox, setLightbox] = useState<Project | null>(null);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -132,15 +122,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                   {p.video ? (
                     <video
                       className="aspect-video w-full cursor-pointer object-cover"
-                      onClick={() =>
-                        setLightbox({
-                          kind: "video",
-                          title: p.title[lang],
-                          poster: p.video!.poster,
-                          mp4: p.video!.mp4,
-                          webm: p.video!.webm,
-                        })
-                      }
+                      onClick={() => setLightbox(p as Project)}
                       title={lang === "fr" ? "Agrandir la démo" : "Expand demo"}
                       autoPlay
                       muted
@@ -194,51 +176,6 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                     <div className="pl-4"><span className="text-[#ff7b72]">EXPECT_EQ</span>(fleet-&gt;totalCapacity(), <span className="text-[#79c0ff]">12000.0</span>);</div>
                     <div>&#125;</div>
                   </div>
-                </div>
-              )}
-
-              {p.screenshots && p.screenshots.length > 0 && (
-                <div className="relative">
-                  <div
-                    id={`screens-${p.id}`}
-                    className="flex gap-2 overflow-x-auto pb-1 scroll-smooth snap-x"
-                    style={{ scrollbarWidth: "none" }}
-                  >
-                    {p.screenshots.map((src, i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={() =>
-                          setLightbox({ kind: "image", title: p.title[lang], src })
-                        }
-                        className="shrink-0 snap-start"
-                        aria-label={`${p.title[lang]} — capture ${i + 1}`}
-                      >
-                        <img
-                          src={src}
-                          alt=""
-                          className="h-28 w-48 rounded-md border border-line object-cover transition hover:border-line-strong"
-                          loading="lazy"
-                        />
-                      </button>
-                    ))}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => scrollStrip(p.id, -1)}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 rounded-full border border-line bg-surface/90 p-1 text-foreground shadow hover:bg-surface-hover"
-                    aria-label={lang === "fr" ? "Défiler à gauche" : "Scroll left"}
-                  >
-                    <ChevronLeft size={16} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => scrollStrip(p.id, 1)}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 rounded-full border border-line bg-surface/90 p-1 text-foreground shadow hover:bg-surface-hover"
-                    aria-label={lang === "fr" ? "Défiler à droite" : "Scroll right"}
-                  >
-                    <ChevronRight size={16} />
-                  </button>
                 </div>
               )}
 
@@ -321,27 +258,27 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
               <X size={14} />
               <span>{lang === "fr" ? "Fermer" : "Close"}</span>
             </button>
-            {lightbox.kind === "video" ? (
+            {lightbox.video ? (
               <video
                 className="aspect-video w-full rounded-lg border border-line bg-black"
                 autoPlay
                 controls
                 loop
                 playsInline
-                poster={lightbox.poster}
+                poster={lightbox.video.poster}
               >
-                <source src={lightbox.webm} type="video/webm" />
-                <source src={lightbox.mp4} type="video/mp4" />
+                <source src={lightbox.video.webm} type="video/webm" />
+                <source src={lightbox.video.mp4} type="video/mp4" />
               </video>
             ) : (
               <img
-                src={lightbox.src}
-                alt={lightbox.title}
+                src={lightbox.image}
+                alt={lightbox.title[lang]}
                 className="w-full rounded-lg border border-line"
               />
             )}
             <p className="mt-3 text-center text-sm text-muted-foreground">
-              {lightbox.title}
+              {lightbox.title[lang]}
             </p>
           </div>
         </div>
