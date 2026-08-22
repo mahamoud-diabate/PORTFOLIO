@@ -119,12 +119,8 @@ export const PORTFOLIO_DATA = {
     },
     {
       id: "synkortex",
-<<<<<<< HEAD
-      title: { fr: "Synkortex — RAG correctif local", en: "Synkortex — Local Corrective RAG" },
-=======
       category: "ai",
-      title: { fr: "SYNKORTEX — assistant documentaire local", en: "SYNKORTEX — local document assistant" },
->>>>>>> 6e84fbb (feat: add GitHub contribution activity calendar (Fig. 2) below social bar)
+      title: { fr: "SYNKORTEX — Assistant documentaire local", en: "SYNKORTEX — Local Document Assistant" },
       meta: {
         fr: "2025 – en cours · IA Générative & Recherche Vectorielle",
         en: "2025 – ongoing · Generative AI & Vector Search",
@@ -149,11 +145,7 @@ export const PORTFOLIO_DATA = {
       },
       tags: ["FastAPI", "LangGraph", "ChromaDB", "Ollama", "Next.js", "SSE Streaming"],
       links: {
-<<<<<<< HEAD
-        code: "https://github.com/mahamoud-diabate/synkortex",
-=======
         code: "https://github.com/mahamoud-diabate/SYNKORTEX",
->>>>>>> 6e84fbb (feat: add GitHub contribution activity calendar (Fig. 2) below social bar)
       },
     },
     {
