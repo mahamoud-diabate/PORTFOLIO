@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { ExternalLink, Box, Activity, Cpu, Code2, Terminal } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { ExternalLink, Box, Activity, Cpu, Code2, Terminal, X } from "lucide-react";
 import { PORTFOLIO_DATA, Project } from "@/data/portfolio-data";
 
 interface ProjectsSectionProps {
@@ -12,6 +12,15 @@ type FilterType = "all" | "systems" | "ai" | "web";
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
   const [filter, setFilter] = useState<FilterType>("all");
+  const [lightbox, setLightbox] = useState<Project | null>(null);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightbox(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   const getProjectIcon = (id: string) => {
     switch (id) {
@@ -109,10 +118,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
               <p className="text-sm text-muted-foreground leading-relaxed">{p.desc[lang]}</p>
 
               {p.image ? (
-                <div className="relative overflow-hidden rounded-lg bg-background">
+                <div className="overflow-hidden rounded-lg border border-line bg-background">
                   {p.video ? (
                     <video
-                      className="aspect-video w-full object-cover"
+                      className="aspect-video w-full cursor-pointer object-cover"
+                      onClick={() => setLightbox(p as Project)}
+                      title={lang === "fr" ? "Agrandir la démo" : "Expand demo"}
                       autoPlay
                       muted
                       loop
@@ -140,7 +151,6 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                       loading="lazy"
                     />
                   )}
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent" />
                 </div>
               ) : (
                 /* Interactive Terminal Blueprint for C++ Architecture */
@@ -227,6 +237,52 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
           </article>
         ))}
       </div>
+
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm sm:p-8"
+          onClick={() => setLightbox(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="relative w-full max-w-5xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setLightbox(null)}
+              className="absolute -top-11 right-0 inline-flex items-center gap-1.5 rounded-md border border-line bg-surface px-3 py-1.5 text-xs font-medium text-foreground transition hover:bg-surface-hover"
+              aria-label={lang === "fr" ? "Fermer" : "Close"}
+            >
+              <X size={14} />
+              <span>{lang === "fr" ? "Fermer" : "Close"}</span>
+            </button>
+            {lightbox.video ? (
+              <video
+                className="aspect-video w-full rounded-lg border border-line bg-black"
+                autoPlay
+                controls
+                loop
+                playsInline
+                poster={lightbox.video.poster}
+              >
+                <source src={lightbox.video.webm} type="video/webm" />
+                <source src={lightbox.video.mp4} type="video/mp4" />
+              </video>
+            ) : (
+              <img
+                src={lightbox.image}
+                alt={lightbox.title[lang]}
+                className="w-full rounded-lg border border-line"
+              />
+            )}
+            <p className="mt-3 text-center text-sm text-muted-foreground">
+              {lightbox.title[lang]}
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
