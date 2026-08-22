@@ -109,10 +109,10 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
               <p className="text-sm text-muted-foreground leading-relaxed">{p.desc[lang]}</p>
 
               {p.image ? (
-                <div className="overflow-hidden rounded-lg border border-line bg-background transition-colors hover:border-line-strong">
+                <div className="relative overflow-hidden rounded-lg bg-background">
                   {p.video ? (
                     <video
-                      className="aspect-video w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.04]"
+                      className="aspect-video w-full object-cover"
                       autoPlay
                       muted
                       loop
@@ -136,10 +136,11 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                     <img
                       src={p.image}
                       alt={p.title[lang]}
-                      className="aspect-video w-full object-cover grayscale-[15%] transition-all duration-300 group-hover:grayscale-0 group-hover:scale-[1.04]"
+                      className="aspect-video w-full object-cover"
                       loading="lazy"
                     />
                   )}
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background to-transparent" />
                 </div>
               ) : (
                 /* Interactive Terminal Blueprint for C++ Architecture */
