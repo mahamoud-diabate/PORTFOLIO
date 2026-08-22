@@ -127,8 +127,17 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                       muted
                       loop
                       playsInline
+                      preload="auto"
                       poster={p.video.poster}
                       aria-label={p.title[lang]}
+                      ref={(el) => {
+                        if (el) {
+                          el.muted = true;
+                          el.defaultMuted = true;
+                          const play = el.play();
+                          if (play && typeof play.catch === "function") play.catch(() => {});
+                        }
+                      }}
                     >
                       <source src={p.video.webm} type="video/webm" />
                       <source src={p.video.mp4} type="video/mp4" />
