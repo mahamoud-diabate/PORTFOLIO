@@ -76,12 +76,12 @@ export const PORTFOLIO_DATA = {
   about: {
     fr: [
       "Étudiant au baccalauréat en informatique à l'Université Laval, avec un parcours préalable en analyse quantitative et économie (IUGB).",
-      "Je développe des logiciels robustes et bien testés : créateur de [SOPAUTO](https://github.com/mahamoud-diabate/SOPAUTO) (logiciel de gestion commerciale avec 319 tests unitaires et intégration), de [SYNKORTEX](https://github.com/mahamoud-diabate/SYNKORTEX) (pipeline vectoriel hors-ligne avec streaming SSE) et de [Compare-Tech](https://compare-tech-king2mos-projects.vercel.app) (plateforme full-stack de benchmarks).",
+      "Je développe des logiciels robustes et bien testés : créateur de [SOPAUTO](https://github.com/mahamoud-diabate/SOPAUTO) (logiciel de gestion commerciale avec 319 tests unitaires et intégration), de [SYNKORTEX](https://github.com/mahamoud-diabate/SYNKORTEX) (pipeline vectoriel hors-ligne avec streaming SSE) et de [Compare-Tech](https://compare-tech-theta.vercel.app) (plateforme full-stack de benchmarks).",
       "À la recherche d'un **stage en développement logiciel (hiver ou été 2027)** à Québec ou en formule hybride / télétravail.",
     ],
     en: [
       "Computer Science student at Université Laval, with prior background in quantitative analysis and economics (IUGB).",
-      "I build robust, thoroughly tested software: author of [SOPAUTO](https://github.com/mahamoud-diabate/SOPAUTO) (commercial ERP with 319 automated tests), [SYNKORTEX](https://github.com/mahamoud-diabate/SYNKORTEX) (offline vector pipeline with SSE streaming), and [Compare-Tech](https://compare-tech-king2mos-projects.vercel.app) (full-stack benchmark platform).",
+      "I build robust, thoroughly tested software: author of [SOPAUTO](https://github.com/mahamoud-diabate/SOPAUTO) (commercial ERP with 319 automated tests), [SYNKORTEX](https://github.com/mahamoud-diabate/SYNKORTEX) (offline vector pipeline with SSE streaming), and [Compare-Tech](https://compare-tech-theta.vercel.app) (full-stack benchmark platform).",
       "Actively seeking a **software engineering internship for Winter or Summer 2027** in Quebec City or remote.",
     ],
   },
@@ -164,7 +164,7 @@ export const PORTFOLIO_DATA = {
         fr: "Plateforme web de comparaison de matériel informatique (processeurs, cartes graphiques, PC portables, smartphones) basée sur des benchmarks réels et graphiques radar comparatifs.",
         en: "Hardware benchmark comparison web platform (CPUs, GPUs, Laptops, Smartphones) powered by real-world multi-source scores and side-by-side radar charts.",
       },
-      urlLabel: "https://compare-tech-king2mos-projects.vercel.app",
+      urlLabel: "https://compare-tech-theta.vercel.app",
       image: "/images/compare-tech-home.webp",
       video: { poster: "/images/compare-tech-poster.jpg", mp4: "/videos/compare-tech.mp4", webm: "/videos/compare-tech.webm" },
       highlights: {
@@ -181,7 +181,7 @@ export const PORTFOLIO_DATA = {
       },
       tags: ["React", "Node.js", "Express", "MongoDB", "Vercel", "REST API"],
       links: {
-        demo: "https://compare-tech-king2mos-projects.vercel.app",
+        demo: "https://compare-tech-theta.vercel.app",
         code: "https://github.com/mahamoud-diabate/compare-tech",
       },
     },
@@ -224,12 +224,12 @@ export const PORTFOLIO_DATA = {
     {
       index: "02",
       name: { fr: "Backend & Données", en: "Backend & Data" },
-      skills: ["FastAPI", "Node.js", "Express", "SQLite", "MongoDB", "ChromaDB", "REST API", "Docker"],
+      skills: ["FastAPI", "Node.js", "Express", "SQLite", "MongoDB", "ChromaDB", "REST API"],
     },
     {
       index: "03",
       name: { fr: "Frontend & UI", en: "Frontend & UI" },
-      skills: ["React", "Next.js", "Tailwind CSS", "Vite", "Tkinter", "Figma"],
+      skills: ["React", "Next.js", "Tailwind CSS", "Vite", "Tkinter"],
     },
     {
       index: "04",
