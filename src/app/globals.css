@@ -14,6 +14,7 @@
   --line: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.16);
   --line-dashed: rgba(255, 255, 255, 0.12);
+  --grid-line: rgba(255, 255, 255, 0.05);
   --text: #f4f4f5;
   --text-muted: #a1a1aa;
   --text-faint: #71717a;
@@ -45,17 +46,18 @@
 }
 
 :root[data-theme="light"], .light {
-  --bg: #f8fafc;
-  --bg-subtle: #f1f5f9;
+  --bg: #fbfbfb;
+  --bg-subtle: #f4f4f5;
   --surface: #ffffff;
-  --surface-hover: #f1f5f9;
+  --surface-hover: #f4f4f5;
   --surface-card: #ffffff;
-  --line: rgba(15, 23, 42, 0.12);
-  --line-strong: rgba(15, 23, 42, 0.24);
-  --line-dashed: rgba(15, 23, 42, 0.20);
+  --line: rgba(0, 0, 0, 0.10);
+  --line-strong: rgba(0, 0, 0, 0.22);
+  --line-dashed: rgba(0, 0, 0, 0.16);
+  --grid-line: rgba(0, 0, 0, 0.07);
   --text: #09090b;
-  --text-muted: #334155;
-  --text-faint: #64748b;
+  --text-muted: #3f3f46;
+  --text-faint: #71717a;
   
   --accent: #4f46e5;
   --accent-glow: rgba(79, 70, 229, 0.15);
@@ -65,8 +67,8 @@
   --info: #0284c7;
   --danger: #e11d48;
 
-  --card-relief: inset 0 1px 0 0 rgba(255, 255, 255, 0.9), 0 2px 6px -1px rgba(15, 23, 42, 0.08), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
-  --btn-relief: inset 0 1px 0 0 rgba(255, 255, 255, 1), 0 1px 3px 0 rgba(15, 23, 42, 0.08);
+  --card-relief: inset 0 1px 0 0 rgba(255, 255, 255, 0.9), 0 2px 6px -1px rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  --btn-relief: inset 0 1px 0 0 rgba(255, 255, 255, 1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
 }
 
 body {
@@ -87,11 +89,9 @@ body::before {
   position: fixed;
   inset: 0;
   background-image: 
-    linear-gradient(to right, var(--line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
-  background-size: 32px 32px;
-  mask-image: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 75%, transparent 100%);
-  -webkit-mask-image: radial-gradient(circle at 50% 30%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.25) 75%, transparent 100%);
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
   pointer-events: none;
   z-index: 0;
 }
@@ -138,7 +138,7 @@ body::before {
     transparent 1px,
     transparent 6px
   );
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 /* Shimmer Animation */
