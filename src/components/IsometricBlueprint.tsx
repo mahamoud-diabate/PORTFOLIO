@@ -32,7 +32,7 @@ export const IsometricBlueprint: React.FC = () => {
         />
 
         <svg className="absolute inset-0 size-full" viewBox="0 0 720 120" fill="none">
-          <g opacity="0.35" stroke="currentColor" strokeWidth="1">
+          <g opacity="0.45" className="stroke-line-strong" strokeWidth="1">
             <line x1="20" y1="20" x2="700" y2="20" strokeDasharray="3 3" />
             <line x1="20" y1="60" x2="700" y2="60" />
             <line x1="20" y1="100" x2="700" y2="100" strokeDasharray="3 3" />
@@ -41,34 +41,53 @@ export const IsometricBlueprint: React.FC = () => {
             <line x1="580" y1="10" x2="580" y2="110" strokeDasharray="3 3" />
           </g>
 
-          {/* Neural & Distributed RAG System Flow */}
-          <g stroke="var(--accent)" strokeWidth="1.5">
-            <path d="M100 60 L220 60 L360 30 L500 60 L620 60" stroke="var(--line-strong)" strokeDasharray="4 4" />
-            <path d="M220 60 L360 90 L500 60" stroke="var(--line-strong)" strokeDasharray="4 4" />
+          {/* Neural & Distributed RAG System Flow with Live Pulse Animation */}
+          <g strokeWidth="1.5">
+            <path
+              d="M100 60 L220 60 L360 30 L500 60 L620 60"
+              className="stroke-line-strong"
+              strokeDasharray="4 4"
+            />
+            <path
+              d="M220 60 L360 90 L500 60"
+              className="stroke-line-strong"
+              strokeDasharray="4 4"
+            />
 
-            <circle cx="100" cy="60" r="5" fill="var(--surface)" stroke="var(--accent)" />
-            <circle cx="220" cy="60" r="6" fill="var(--surface)" stroke="var(--info)" />
-            <circle cx="360" cy="30" r="7" fill="var(--surface)" stroke="var(--accent)" />
-            <circle cx="360" cy="90" r="6" fill="var(--surface)" stroke="var(--success)" />
-            <circle cx="500" cy="60" r="6" fill="var(--surface)" stroke="var(--accent)" />
-            <circle cx="620" cy="60" r="5" fill="var(--surface)" stroke="var(--success)" />
+            {/* Nœuds interactifs */}
+            <circle cx="100" cy="60" r="5" className="fill-surface stroke-accent" />
+            <circle cx="220" cy="60" r="6" className="fill-surface stroke-info" />
+            
+            {/* OLLAMA Pulse */}
+            <circle cx="360" cy="30" r="7" className="fill-surface stroke-accent" />
+            <circle cx="360" cy="30" r="10" className="stroke-accent/40 animate-ping" fill="none" />
 
-            <text x="100" y="80" fill="var(--text-faint)" fontFamily="JetBrains Mono, monospace" fontSize="9" textAnchor="middle">
+            {/* ChromaDB Node */}
+            <circle cx="360" cy="90" r="6" className="fill-surface stroke-success" />
+            
+            {/* LangGraph Node */}
+            <circle cx="500" cy="60" r="6" className="fill-surface stroke-accent" />
+            
+            {/* SSE Stream Output with Pulse */}
+            <circle cx="620" cy="60" r="5" className="fill-surface stroke-success" />
+            <circle cx="620" cy="60" r="8" className="stroke-success/50 animate-pulse" fill="none" />
+
+            <text x="100" y="80" className="fill-foreground font-mono text-[9px]" textAnchor="middle">
               CLIENT
             </text>
-            <text x="220" y="80" fill="var(--text-faint)" fontFamily="JetBrains Mono, monospace" fontSize="9" textAnchor="middle">
+            <text x="220" y="80" className="fill-foreground font-mono text-[9px]" textAnchor="middle">
               FASTAPI
             </text>
-            <text x="360" y="18" fill="var(--text-faint)" fontFamily="JetBrains Mono, monospace" fontSize="9" textAnchor="middle">
+            <text x="360" y="18" className="fill-foreground font-mono text-[9px] font-semibold" textAnchor="middle">
               OLLAMA / EMBED
             </text>
-            <text x="360" y="110" fill="var(--text-faint)" fontFamily="JetBrains Mono, monospace" fontSize="9" textAnchor="middle">
+            <text x="360" y="110" className="fill-foreground font-mono text-[9px]" textAnchor="middle">
               CHROMADB
             </text>
-            <text x="500" y="80" fill="var(--text-faint)" fontFamily="JetBrains Mono, monospace" fontSize="9" textAnchor="middle">
+            <text x="500" y="80" className="fill-foreground font-mono text-[9px]" textAnchor="middle">
               LANGGRAPH
             </text>
-            <text x="620" y="80" fill="var(--text-faint)" fontFamily="JetBrains Mono, monospace" fontSize="9" textAnchor="middle">
+            <text x="620" y="80" className="fill-foreground font-mono text-[9px] font-semibold" textAnchor="middle">
               STREAM (SSE)
             </text>
           </g>

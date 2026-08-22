@@ -17,34 +17,47 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
 
   useEffect(() => {
     const updateClock = () => {
-      const now = new Date();
       try {
-        const options: Intl.DateTimeFormatOptions = {
+        const now = new Date();
+        const formatter = new Intl.DateTimeFormat("en-US", {
           timeZone: "America/Toronto",
-          hour: "2-digit",
+          hour: "numeric",
           minute: "2-digit",
           second: "2-digit",
           hour12: true,
-        };
-        const str = new Intl.DateTimeFormat(lang === "fr" ? "fr-CA" : "en-US", options).format(now);
-        setTimeString(str);
+        });
+        setTimeString(formatter.format(now));
 
-        const tzString = now.toLocaleString("en-US", { timeZone: "America/Toronto" });
-        const tzDate = new Date(tzString);
-        const hours = tzDate.getHours();
-        const minutes = tzDate.getMinutes();
+        // Calcul précis des angles des aiguilles
+        const parts = new Intl.DateTimeFormat("en-US", {
+          timeZone: "America/Toronto",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          hour12: false,
+        }).formatToParts(now);
+
+        const hours = parseInt(parts.find((p) => p.type === "hour")?.value || "0", 10);
+        const minutes = parseInt(parts.find((p) => p.type === "minute")?.value || "0", 10);
 
         setHourAngle(((hours % 12) + minutes / 60) * 30);
         setMinuteAngle(minutes * 6);
-      } catch (e) {
-        setTimeString("UTC-4");
+      } catch {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const ampm = hours >= 12 ? "PM" : "AM";
+        const h12 = hours % 12 || 12;
+        setTimeString(`${h12}:${minutes.toString().padStart(2, "0")} ${ampm}`);
+        setHourAngle(((hours % 12) + minutes / 60) * 30);
+        setMinuteAngle(minutes * 6);
       }
     };
 
     updateClock();
     const interval = setInterval(updateClock, 1000);
     return () => clearInterval(interval);
-  }, [lang]);
+  }, []);
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
