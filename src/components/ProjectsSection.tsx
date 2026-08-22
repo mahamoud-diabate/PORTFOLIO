@@ -217,7 +217,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                         <img
                           src={src}
                           alt=""
-                          className="h-24 w-40 rounded-md border border-line object-cover transition hover:border-line-strong"
+                          className="h-28 w-48 rounded-md border border-line object-cover transition hover:border-line-strong"
                           loading="lazy"
                         />
                       </button>
