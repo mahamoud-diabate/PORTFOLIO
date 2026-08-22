@@ -108,16 +108,16 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
   const getCellColor = (level: number) => {
     switch (level) {
       case 1:
-        return "bg-[#0e4429] dark:bg-[#003820] border-[#00552b]";
+        return "bg-[#0e4429] dark:bg-[#0e4429] border-[#006d32]";
       case 2:
-        return "bg-[#006d32] dark:bg-[#006d32] border-[#008f43]";
+        return "bg-[#006d32] dark:bg-[#006d32] border-[#26a641]";
       case 3:
-        return "bg-[#26a641] dark:bg-[#26a641] border-[#39d353]";
+        return "bg-[#26a641] dark:bg-[#26a641] border-[#39d353] shadow-[0_0_4px_rgba(38,166,65,0.3)]";
       case 4:
-        return "bg-[#39d353] dark:bg-[#39d353] border-[#56e86f]";
+        return "bg-[#39d353] dark:bg-[#39d353] border-[#56e86f] shadow-[0_0_8px_rgba(57,211,83,0.5)]";
       case 0:
       default:
-        return "bg-surface-hover/60 dark:bg-[#151921] border-line/40";
+        return "bg-[#ebedf0] dark:bg-[#161b22] border-[#d0d7de]/60 dark:border-[#30363d]/60";
     }
   };
 
@@ -209,11 +209,11 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
 
         <div className="flex items-center gap-1.5 text-[10px]">
           <span>{lang === "fr" ? "Moins" : "Less"}</span>
-          <span className="size-2 rounded-[2px] bg-surface-hover border border-line" />
-          <span className="size-2 rounded-[2px] bg-[#0e4429] dark:bg-[#003820]" />
-          <span className="size-2 rounded-[2px] bg-[#006d32]" />
-          <span className="size-2 rounded-[2px] bg-[#26a641]" />
-          <span className="size-2 rounded-[2px] bg-[#39d353]" />
+          <span className="size-2.5 rounded-[2px] bg-[#ebedf0] dark:bg-[#161b22] border border-[#d0d7de]/60 dark:border-[#30363d]/60" />
+          <span className="size-2.5 rounded-[2px] bg-[#0e4429] border border-[#006d32]" />
+          <span className="size-2.5 rounded-[2px] bg-[#006d32] border border-[#26a641]" />
+          <span className="size-2.5 rounded-[2px] bg-[#26a641] border border-[#39d353]" />
+          <span className="size-2.5 rounded-[2px] bg-[#39d353] border border-[#56e86f]" />
           <span>{lang === "fr" ? "Plus" : "More"}</span>
         </div>
       </div>
