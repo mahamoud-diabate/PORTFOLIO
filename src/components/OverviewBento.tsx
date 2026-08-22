@@ -77,8 +77,8 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 border-b border-line bg-background">
       {/* Role */}
-      <div className="flex items-start gap-3 p-4 border-b sm:border-r border-line hover:bg-surface transition-colors">
-        <div className="flex size-8 shrink-0 items-center justify-center rounded-md border border-line-strong bg-surface text-muted-foreground shadow-sm">
+      <div className="flex items-start gap-3 p-4 border-b sm:border-r border-line hover:bg-surface/50 transition-colors">
+        <div className="relief-btn flex size-8 shrink-0 items-center justify-center rounded-md border border-line-strong bg-surface text-muted-foreground">
           <Briefcase size={15} />
         </div>
         <div className="min-w-0 flex-1">
@@ -92,8 +92,8 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
       </div>
 
       {/* Education */}
-      <div className="flex items-start gap-3 p-4 border-b border-line hover:bg-surface transition-colors">
-        <div className="flex size-8 shrink-0 items-center justify-center rounded-md border border-line-strong bg-surface text-muted-foreground shadow-sm">
+      <div className="flex items-start gap-3 p-4 border-b border-line hover:bg-surface/50 transition-colors">
+        <div className="relief-btn flex size-8 shrink-0 items-center justify-center rounded-md border border-line-strong bg-surface text-muted-foreground">
           <GraduationCap size={15} />
         </div>
         <div className="min-w-0 flex-1">
@@ -107,8 +107,8 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
       </div>
 
       {/* Location & Live Clock */}
-      <div className="flex items-start gap-3 p-4 border-b sm:border-b-0 sm:border-r border-line hover:bg-surface transition-colors">
-        <div className="flex size-8 shrink-0 items-center justify-center rounded-md border border-line-strong bg-surface text-muted-foreground shadow-sm">
+      <div className="flex items-start gap-3 p-4 border-b sm:border-b-0 sm:border-r border-line hover:bg-surface/50 transition-colors">
+        <div className="relief-btn flex size-8 shrink-0 items-center justify-center rounded-md border border-line-strong bg-surface text-muted-foreground">
           <MapPin size={15} />
         </div>
         <div className="min-w-0 flex-1">
@@ -121,7 +121,7 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
               <line x1="12" y1="12" x2={x2H.toFixed(2)} y2={y2H.toFixed(2)} strokeLinecap="round" />
               <line x1="12" y1="12" x2={x2M.toFixed(2)} y2={y2M.toFixed(2)} strokeLinecap="round" />
             </svg>
-            <span className="font-mono text-xs">
+            <span className="font-mono text-xs font-semibold">
               {lang === "fr" ? "Québec" : "Quebec City"} — {timeString}
             </span>
           </div>
@@ -129,8 +129,8 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
       </div>
 
       {/* Email */}
-      <div className="flex items-start gap-3 p-4 hover:bg-surface transition-colors">
-        <div className="flex size-8 shrink-0 items-center justify-center rounded-md border border-line-strong bg-surface text-muted-foreground shadow-sm">
+      <div className="flex items-start gap-3 p-4 hover:bg-surface/50 transition-colors">
+        <div className="relief-btn flex size-8 shrink-0 items-center justify-center rounded-md border border-line-strong bg-surface text-muted-foreground">
           <Mail size={15} />
         </div>
         <div className="min-w-0 flex-1">
@@ -142,7 +142,7 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
             <button
               onClick={handleCopyEmail}
               type="button"
-              className="inline-flex size-6 shrink-0 items-center justify-center rounded text-muted-foreground hover:bg-surface-hover hover:text-foreground transition"
+              className="relief-btn inline-flex size-6 shrink-0 items-center justify-center rounded border border-line bg-surface text-muted-foreground hover:bg-surface-hover hover:text-foreground transition"
               title={lang === "fr" ? "Copier le courriel" : "Copy email"}
             >
               {copied ? <Check size={13} className="text-success" /> : <Copy size={13} />}
@@ -152,15 +152,15 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
       </div>
 
       {/* Engineering Impact Metrics */}
-      <div className="col-span-1 sm:col-span-2 grid grid-cols-2 sm:grid-cols-4 border-t border-line bg-surface/20 divide-x divide-y sm:divide-y-0 divide-line">
+      <div className="col-span-1 sm:col-span-2 grid grid-cols-2 sm:grid-cols-4 border-t border-line bg-surface/30 divide-x divide-y sm:divide-y-0 divide-line">
         {PORTFOLIO_DATA.stats.map((stat, i) => (
-          <div key={i} className="p-3 sm:p-4 flex flex-col justify-center hover:bg-surface/40 transition-colors">
+          <div key={i} className="p-3 sm:p-4 flex flex-col justify-center hover:bg-surface/60 transition-colors">
             <div className="flex items-baseline gap-1.5">
               <span className="font-mono text-xl sm:text-2xl font-bold text-foreground tracking-tight">
                 {stat.value}
               </span>
             </div>
-            <div className="font-mono text-[11px] font-medium text-foreground truncate mt-0.5">
+            <div className="font-mono text-[11px] font-semibold text-foreground truncate mt-0.5">
               {stat.label[lang]}
             </div>
             <div className="font-mono text-[10px] text-muted-foreground truncate">
