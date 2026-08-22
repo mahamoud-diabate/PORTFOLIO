@@ -2,7 +2,7 @@
 
 Portfolio personnel moderne et minimaliste construit avec Next.js 15, TypeScript et Tailwind CSS.
 
-**En ligne :** [portfolio-king2mos-projects.vercel.app](https://portfolio-king2mos-projects.vercel.app/)
+**En ligne :** [mahamoud-diabate.vercel.app](https://mahamoud-diabate.vercel.app/)
 
 ## Stack technique
 
