@@ -55,7 +55,7 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
           if (total > 0) setTotalContributions(total);
         }
       } catch {
-        // En cas d'erreur de réseau, conserve les données exactes pré-générées
+        // En cas d'erreur de réseau, conserve les données réelles
       }
     }
 
@@ -76,27 +76,28 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
     }
   });
 
-  // Calcul des positions des mois sans chevauchement
+  // Obtenir les labels des mois
   const monthNamesFr = ["Jan", "Fév", "Mar", "Avr", "Mai", "Juin", "Juil", "Août", "Sep", "Oct", "Nov", "Déc"];
   const monthNamesEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   const monthNames = lang === "fr" ? monthNamesFr : monthNamesEn;
 
-  const monthMarkers: { name: string; weekIndex: number }[] = [];
-  let prevMonth = -1;
-  weeks.forEach((week, wIdx) => {
-    if (week.length > 0) {
-      const m = new Date(week[0].date).getMonth();
-      if (m !== prevMonth) {
-        monthMarkers.push({ name: monthNames[m], weekIndex: wIdx });
-        prevMonth = m;
+  const monthLabels: { label: string; colIndex: number }[] = [];
+  let lastMonth = -1;
+  weeks.forEach((week, colIdx) => {
+    const firstDay = week[0];
+    if (firstDay) {
+      const month = new Date(firstDay.date).getMonth();
+      if (month !== lastMonth && colIdx > 0) {
+        monthLabels.push({ label: monthNames[month], colIndex: colIdx });
+        lastMonth = month;
       }
     }
   });
 
-  const getCellClass = (level: number) => {
+  const getCellColor = (level: number) => {
     switch (level) {
       case 1:
-        return "bg-[#0e4429] dark:bg-[#0e4429] border-[#00552b]";
+        return "bg-[#0e4429] dark:bg-[#003820] border-[#00552b]";
       case 2:
         return "bg-[#006d32] dark:bg-[#006d32] border-[#008f43]";
       case 3:
@@ -105,14 +106,14 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
         return "bg-[#39d353] dark:bg-[#39d353] border-[#56e86f]";
       case 0:
       default:
-        return "bg-surface-hover/50 dark:bg-[#161b22] border-line/30";
+        return "bg-surface-hover/60 dark:bg-[#151921] border-line/40";
     }
   };
 
   return (
     <section className="border-b border-line bg-background p-4 sm:p-5">
-      {/* En-tête de section */}
-      <div className="flex items-center justify-between mb-3">
+      {/* En-tête / titre compact */}
+      <div className="flex items-center justify-between mb-3 text-xs">
         <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
           {lang === "fr" ? "Activité GitHub" : "GitHub Activity"}
         </span>
@@ -121,42 +122,46 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
         </span>
       </div>
 
-      {/* Grille GitHub adaptée au conteneur */}
-      <div className="overflow-x-auto overflow-y-hidden pb-1 scrollbar-none">
-        <div className="inline-block min-w-full">
-          {/* Ligne des mois */}
-          <div className="flex text-[10px] font-mono text-muted-foreground mb-1.5 pl-6 h-4 relative">
-            {monthMarkers.map((m, idx) => (
+      {/* Grille GitHub */}
+      <div className="relative overflow-x-auto pb-1 scrollbar-thin">
+        <div className="min-w-[680px]">
+          {/* Labels des mois */}
+          <div className="relative flex text-[10px] font-mono text-muted-foreground mb-1 ml-6 h-4">
+            {monthLabels.map((m, idx) => (
               <span
                 key={idx}
-                className="absolute"
-                style={{ left: `${24 + m.weekIndex * 12.8}px` }}
+                style={{
+                  position: "absolute",
+                  left: `${m.colIndex * 13}px`,
+                }}
               >
-                {m.name}
+                {m.label}
               </span>
             ))}
           </div>
 
-          {/* Corps de la grille avec jours de la semaine */}
-          <div className="flex items-start gap-2">
-            {/* Jours : Lun, Mer, Ven */}
-            <div className="flex flex-col justify-between text-[9px] font-mono text-muted-foreground select-none h-[88px] pt-1">
-              <span>{lang === "fr" ? "Lun" : "Mon"}</span>
-              <span>{lang === "fr" ? "Mer" : "Wed"}</span>
-              <span>{lang === "fr" ? "Ven" : "Fri"}</span>
+          {/* Grille avec labels des jours */}
+          <div className="flex gap-1.5 items-start">
+            <div className="flex flex-col gap-[3px] text-[9px] font-mono text-muted-foreground pt-0.5 select-none w-5">
+              <span className="h-[10px] leading-[10px]"></span>
+              <span className="h-[10px] leading-[10px]">{lang === "fr" ? "Lun" : "Mon"}</span>
+              <span className="h-[10px] leading-[10px]"></span>
+              <span className="h-[10px] leading-[10px]">{lang === "fr" ? "Mer" : "Wed"}</span>
+              <span className="h-[10px] leading-[10px]"></span>
+              <span className="h-[10px] leading-[10px]">{lang === "fr" ? "Ven" : "Fri"}</span>
+              <span className="h-[10px] leading-[10px]"></span>
             </div>
 
-            {/* Colonnes de 7 jours */}
-            <div className="flex gap-[2.8px] flex-1">
+            <div className="flex gap-[3px] flex-1">
               {weeks.map((week, wIdx) => (
-                <div key={wIdx} className="flex flex-col gap-[2.8px]">
+                <div key={wIdx} className="flex flex-col gap-[3px]">
                   {week.map((day, dIdx) => (
                     <div
                       key={dIdx}
                       onMouseEnter={() => setHoveredDay(day)}
                       onMouseLeave={() => setHoveredDay(null)}
-                      title={`${day.count} contributions le ${day.date}`}
-                      className={`size-[10px] rounded-[2px] border transition-transform duration-100 hover:scale-125 cursor-pointer ${getCellClass(
+                      title={`${day.count} contributions on ${day.date}`}
+                      className={`size-[10px] sm:size-[11px] rounded-[2px] border transition-transform duration-100 hover:scale-125 cursor-pointer ${getCellColor(
                         day.level
                       )}`}
                     />
@@ -168,7 +173,7 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
         </div>
       </div>
 
-      {/* Légende Blueprint Fig. 2 */}
+      {/* Légende technique façon Blueprint (Fig. 2) */}
       <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2 border-t border-line/60 pt-2.5 font-mono text-[11px] text-muted-foreground">
         <div className="flex items-center gap-1.5">
           <span className="font-semibold text-foreground">Fig. 2.</span>
@@ -191,8 +196,8 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
 
         <div className="flex items-center gap-1.5 text-[10px]">
           <span>{lang === "fr" ? "Moins" : "Less"}</span>
-          <span className="size-2 rounded-[2px] bg-surface-hover/50 dark:bg-[#161b22] border border-line/30" />
-          <span className="size-2 rounded-[2px] bg-[#0e4429]" />
+          <span className="size-2 rounded-[2px] bg-surface-hover/60 dark:bg-[#151921] border border-line/40" />
+          <span className="size-2 rounded-[2px] bg-[#0e4429] dark:bg-[#003820]" />
           <span className="size-2 rounded-[2px] bg-[#006d32]" />
           <span className="size-2 rounded-[2px] bg-[#26a641]" />
           <span className="size-2 rounded-[2px] bg-[#39d353]" />
