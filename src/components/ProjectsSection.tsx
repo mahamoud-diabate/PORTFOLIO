@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { ExternalLink, Box, Activity, Cpu, Code2, Terminal, X } from "lucide-react";
+import { ExternalLink, Box, Activity, Cpu, X } from "lucide-react";
 import { PORTFOLIO_DATA, Project } from "@/data/portfolio-data";
 
 interface ProjectsSectionProps {
@@ -152,32 +152,7 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                     />
                   )}
                 </div>
-              ) : (
-                /* Interactive Terminal Blueprint for C++ Architecture */
-                <div className="overflow-hidden rounded-lg border border-line bg-[#0d1117] text-[#c9d1d9] font-mono text-xs shadow-inner">
-                  <div className="flex items-center justify-between border-b border-line/60 bg-[#161b22] px-3 py-1.5 text-muted-foreground">
-                    <div className="flex items-center gap-1.5">
-                      <span className="size-2 rounded-full bg-[#ff5f56]" />
-                      <span className="size-2 rounded-full bg-[#ffbd2e]" />
-                      <span className="size-2 rounded-full bg-[#27c93f]" />
-                      <span className="ml-2 text-[11px] text-muted-foreground flex items-center gap-1">
-                        <Terminal size={11} />
-                        fleet_manager_test.cpp — Google Test (GTest)
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-accent">C++20 · CMake · RAII</span>
-                  </div>
-                  <div className="p-3.5 leading-relaxed overflow-x-auto text-[11.5px]">
-                    <div className="text-muted-foreground">// Polymorphic hierarchy &amp; contract enforcement</div>
-                    <div><span className="text-[#ff7b72]">TEST</span>(<span className="text-[#a5d6ff]">VehiculeFleetTest</span>, <span className="text-[#a5d6ff]">PolymorphicContractValidation</span>) &#123;</div>
-                    <div className="pl-4"><span className="text-[#ff7b72]">auto</span> fleet = std::make_unique&lt;<span className="text-[#79c0ff]">FleetManager</span>&gt;();</div>
-                    <div className="pl-4">fleet-&gt;registerVehicule(std::make_unique&lt;<span className="text-[#79c0ff]">Camion</span>&gt;(<span className="text-[#a5d6ff]">&quot;CAM-042&quot;</span>, <span className="text-[#79c0ff]">12000.0</span>));</div>
-                    <div className="pl-4"><span className="text-[#ff7b72]">EXPECT_TRUE</span>(fleet-&gt;validateIntegrity());</div>
-                    <div className="pl-4"><span className="text-[#ff7b72]">EXPECT_EQ</span>(fleet-&gt;totalCapacity(), <span className="text-[#79c0ff]">12000.0</span>);</div>
-                    <div>&#125;</div>
-                  </div>
-                </div>
-              )}
+              ) : null}
 
               <ul className="flex flex-col gap-1.5 text-xs text-muted-foreground">
                 {p.highlights[lang].map((h, i) => (
