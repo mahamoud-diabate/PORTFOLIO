@@ -6,6 +6,7 @@ import { ProfileHeader } from "@/components/ProfileHeader";
 import { IsometricBlueprint } from "@/components/IsometricBlueprint";
 import { OverviewBento } from "@/components/OverviewBento";
 import { SocialBar } from "@/components/SocialBar";
+import { GithubActivity } from "@/components/GithubActivity";
 import { HelloSection } from "@/components/HelloSection";
 import { ProjectsSection } from "@/components/ProjectsSection";
 import { StackSection } from "@/components/StackSection";
@@ -71,6 +72,7 @@ export default function Home() {
         <IsometricBlueprint />
         <OverviewBento lang={lang} onCopy={handleCopy} />
         <SocialBar lang={lang} />
+        <GithubActivity lang={lang} />
 
         <div className="stripe-divider" />
 

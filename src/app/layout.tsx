@@ -6,17 +6,17 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Mahamoud Diabate — Développeur Full-Stack & IA",
+  title: "Mahamoud Diabate — Développeur Logiciel & IA",
   description:
-    "Portfolio de Mahamoud Diabate, développeur Full-Stack et IA générative à l'Université Laval. Recherche un stage en développement logiciel pour l'été 2027.",
+    "Portfolio de Mahamoud Diabate, développeur Logiciel & IA à l'Université Laval. Recherche un stage en développement logiciel pour l'hiver ou l'été 2027.",
   authors: [{ name: "Mahamoud Diabate", url: "https://github.com/mahamoud-diabate" }],
   icons: {
     icon: "/favicon.svg",
   },
   openGraph: {
-    title: "Mahamoud Diabate — Développeur Full-Stack & IA",
+    title: "Mahamoud Diabate — Développeur Logiciel & IA",
     description:
-      "Étudiant en informatique à l'Université Laval — Recherche de stage été 2027. Python, FastAPI, React, Next.js, C++, RAG.",
+      "Étudiant en informatique à l'Université Laval — Recherche de stage hiver / été 2027. C++, Python, FastAPI, React, Next.js, RAG.",
     url: siteUrl,
     siteName: "Mahamoud Diabate Portfolio",
     images: [

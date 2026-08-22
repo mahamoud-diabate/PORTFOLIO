@@ -137,6 +137,25 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
           </div>
         </div>
       </div>
+
+      {/* Engineering Impact Metrics */}
+      <div className="col-span-1 sm:col-span-2 grid grid-cols-2 sm:grid-cols-4 border-t border-line bg-surface/20 divide-x divide-y sm:divide-y-0 divide-line">
+        {PORTFOLIO_DATA.stats.map((stat, i) => (
+          <div key={i} className="p-3 sm:p-4 flex flex-col justify-center hover:bg-surface/40 transition-colors">
+            <div className="flex items-baseline gap-1.5">
+              <span className="font-mono text-xl sm:text-2xl font-bold text-foreground tracking-tight">
+                {stat.value}
+              </span>
+            </div>
+            <div className="font-mono text-[11px] font-medium text-foreground truncate mt-0.5">
+              {stat.label[lang]}
+            </div>
+            <div className="font-mono text-[10px] text-muted-foreground truncate">
+              {stat.sub}
+            </div>
+          </div>
+        ))}
+      </div>
     </section>
   );
 };
