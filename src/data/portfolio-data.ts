@@ -7,6 +7,7 @@ export interface Project {
   desc: { fr: string; en: string };
   urlLabel?: string;
   image: string;
+  video?: { poster: string; mp4: string; webm: string };
   highlights: { fr: string[]; en: string[] };
   tags: string[];
   links?: {
@@ -75,21 +76,21 @@ export const PORTFOLIO_DATA = {
   about: {
     fr: [
       "Étudiant au baccalauréat en informatique à l'Université Laval, avec un parcours préalable en analyse quantitative et économie (IUGB).",
-      "Je développe des logiciels robustes et bien testés : créateur de [SODIPAC](https://github.com/mahamoud-diabate/SODIPAC) (logiciel de gestion commerciale avec 319 tests unitaires et intégration), de [SYNKORTEX](https://github.com/mahamoud-diabate/SYNKORTEX) (pipeline vectoriel hors-ligne avec streaming SSE) et de [Compare-Tech](https://compare-tech-king2mos-projects.vercel.app) (plateforme full-stack de benchmarks).",
+      "Je développe des logiciels robustes et bien testés : créateur de [SOPAUTO](https://github.com/mahamoud-diabate/SOPAUTO) (logiciel de gestion commerciale avec 319 tests unitaires et intégration), de [SYNKORTEX](https://github.com/mahamoud-diabate/SYNKORTEX) (pipeline vectoriel hors-ligne avec streaming SSE) et de [Compare-Tech](https://compare-tech-king2mos-projects.vercel.app) (plateforme full-stack de benchmarks).",
       "À la recherche d'un **stage en développement logiciel (hiver ou été 2027)** à Québec ou en formule hybride / télétravail.",
     ],
     en: [
       "Computer Science student at Université Laval, with prior background in quantitative analysis and economics (IUGB).",
-      "I build robust, thoroughly tested software: author of [SODIPAC](https://github.com/mahamoud-diabate/SODIPAC) (commercial ERP with 319 automated tests), [SYNKORTEX](https://github.com/mahamoud-diabate/SYNKORTEX) (offline vector pipeline with SSE streaming), and [Compare-Tech](https://compare-tech-king2mos-projects.vercel.app) (full-stack benchmark platform).",
+      "I build robust, thoroughly tested software: author of [SOPAUTO](https://github.com/mahamoud-diabate/SOPAUTO) (commercial ERP with 319 automated tests), [SYNKORTEX](https://github.com/mahamoud-diabate/SYNKORTEX) (offline vector pipeline with SSE streaming), and [Compare-Tech](https://compare-tech-king2mos-projects.vercel.app) (full-stack benchmark platform).",
       "Actively seeking a **software engineering internship for Winter or Summer 2027** in Quebec City or remote.",
     ],
   },
 
   projects: [
     {
-      id: "sodipac",
+      id: "sopauto",
       category: "desktop",
-      title: { fr: "SODIPAC — Gestion commerciale & ERP", en: "SODIPAC — Commercial ERP & Inventory" },
+      title: { fr: "SOPAUTO — Gestion commerciale & ERP", en: "SOPAUTO — Commercial ERP & Inventory" },
       meta: {
         fr: "2025 – en cours · Application Desktop Commerciale",
         en: "2025 – ongoing · Commercial Desktop Application",
@@ -99,7 +100,8 @@ export const PORTFOLIO_DATA = {
         fr: "Application complète de gestion commerciale pour distributeur de pièces automobiles, modélisée sur les processus réels d'un comptoir. Module de caisse, gestion de stock multi-dépôts au CUMP, créances, achats et retours.",
         en: "Autonomous ERP and inventory software for an auto parts distributor, modelled on real counter workflows. POS, multi-warehouse weighted average cost (AVCO) inventory, receivables, purchasing, and returns.",
       },
-      image: "/images/sodipac-dashboard.webp",
+      image: "/images/sopauto-dashboard.webp",
+      video: { poster: "/images/sopauto-caisse-poster.jpg", mp4: "/videos/sopauto-caisse.mp4", webm: "/videos/sopauto-caisse.webm" },
       highlights: {
         fr: [
           "Architecture modulaire de 18 modules appuyée sur SQLite (**23 tables relationnelles, 33 index**).",
@@ -114,7 +116,7 @@ export const PORTFOLIO_DATA = {
       },
       tags: ["Python", "Tkinter", "SQLite", "PyTest (319)", "PyInstaller", "Inno Setup"],
       links: {
-        code: "https://github.com/mahamoud-diabate/SODIPAC",
+        code: "https://github.com/mahamoud-diabate/SOPAUTO",
       },
     },
     {
@@ -130,20 +132,21 @@ export const PORTFOLIO_DATA = {
         fr: "Pipeline RAG local avec agent de décision : indexation vectorielle, réécriture contextuelle des requêtes, bascule web automatique en cas d'absence de source locale et streaming des réponses.",
         en: "Local RAG pipeline with agentic routing: vector indexing, contextual query reformulation, automatic web fallback, and real-time token streaming.",
       },
-      image: "/images/rag-web.webp",
+      image: "/images/synkortex-chat.webp",
+      video: { poster: "/images/synkortex-chat-poster.jpg", mp4: "/videos/synkortex-chat.mp4", webm: "/videos/synkortex-chat.webm" },
       highlights: {
         fr: [
-          "Confidentialité totale des données grâce à une exécution 100 % locale (embeddings et inférence via Ollama).",
+          "Confidentialité totale des données grâce à une exécution 100 % locale (embeddings FastEmbed, LLM agnostique : Gemini, DeepSeek, Ollama ou endpoint OpenAI).",
           "Diffusion en temps réel via Server-Sent Events (SSE) avec indicateurs de pertinence et citations.",
           "Backend FastAPI avec graphe décisionnel LangGraph et interface réactive Next.js / React.",
         ],
         en: [
-          "Zero data leakage: 100% offline local execution with Ollama embeddings and inference.",
+          "Zero data leakage: 100% offline local execution with FastEmbed embeddings and provider-agnostic LLMs (Gemini, DeepSeek, Ollama, or any OpenAI-compatible endpoint).",
           "Real-time token streaming via Server-Sent Events (SSE) with relevance metrics and source citations.",
           "FastAPI backend with LangGraph decision agent and modern Next.js / React UI.",
         ],
       },
-      tags: ["FastAPI", "LangGraph", "ChromaDB", "Ollama", "Next.js", "SSE Streaming"],
+      tags: ["FastAPI", "LangGraph", "ChromaDB", "FastEmbed", "Next.js", "SSE Streaming"],
       links: {
         code: "https://github.com/mahamoud-diabate/SYNKORTEX",
       },
@@ -163,6 +166,7 @@ export const PORTFOLIO_DATA = {
       },
       urlLabel: "https://compare-tech-king2mos-projects.vercel.app",
       image: "/images/compare-tech-home.webp",
+      video: { poster: "/images/compare-tech-poster.jpg", mp4: "/videos/compare-tech.mp4", webm: "/videos/compare-tech.webm" },
       highlights: {
         fr: [
           "440 produits indexés (136 processeurs, 104 cartes graphiques, 100 PC portables, 100 smartphones).",
@@ -230,7 +234,7 @@ export const PORTFOLIO_DATA = {
     {
       index: "04",
       name: { fr: "IA & Systèmes", en: "AI & Systems" },
-      skills: ["RAG Local", "LangGraph", "Ollama", "Embeddings Vectoriels", "SSE Streaming", "Google Test", "CMake"],
+      skills: ["RAG Local", "LangGraph", "FastEmbed", "Embeddings Vectoriels", "SSE Streaming", "Google Test", "CMake"],
     },
     {
       index: "05",

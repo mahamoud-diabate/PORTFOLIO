@@ -15,9 +15,9 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
 
   const getProjectIcon = (id: string) => {
     switch (id) {
-      case "sodipac":
+      case "sopauto":
         return <Box size={16} />;
-      case "local-rag":
+      case "synkortex":
         return <Activity size={16} />;
       case "compare-tech":
         return (
@@ -120,12 +120,27 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
                       </span>
                     )}
                   </div>
-                  <img
-                    src={p.image}
-                    alt={p.title[lang]}
-                    className="aspect-video w-full object-cover grayscale-[15%] transition-all duration-300 group-hover:grayscale-0"
-                    loading="lazy"
-                  />
+                  {p.video ? (
+                    <video
+                      className="aspect-video w-full object-cover"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      poster={p.video.poster}
+                      aria-label={p.title[lang]}
+                    >
+                      <source src={p.video.webm} type="video/webm" />
+                      <source src={p.video.mp4} type="video/mp4" />
+                    </video>
+                  ) : (
+                    <img
+                      src={p.image}
+                      alt={p.title[lang]}
+                      className="aspect-video w-full object-cover grayscale-[15%] transition-all duration-300 group-hover:grayscale-0"
+                      loading="lazy"
+                    />
+                  )}
                 </div>
               ) : (
                 /* Interactive Terminal Blueprint for C++ Architecture */
