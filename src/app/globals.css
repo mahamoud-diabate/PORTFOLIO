@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
-
 /* ----- Design Tokens ----- */
 :root {
   --bg: #09090b;
@@ -29,9 +27,10 @@
   --card-relief: inset 0 1px 0 0 rgba(255, 255, 255, 0.07), 0 2px 8px -2px rgba(0, 0, 0, 0.4);
   --btn-relief: inset 0 1px 0 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-handwritten: 'Caveat', cursive;
+  /* Polices auto-hébergées par next/font (voir src/app/layout.tsx) */
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-handwritten: var(--font-caveat), 'Segoe Script', cursive;
 
   --max-w: 768px;
   --radius-sm: 6px;
@@ -210,4 +209,45 @@ body::before {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ----- Animations d'apparition (remplace le plugin tailwindcss-animate) ----- */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes zoom-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translate(-50%, 0.5rem); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 150ms var(--ease-out) both;
+}
+.animate-zoom-in {
+  animation: zoom-in 150ms var(--ease-out) both;
+}
+.animate-slide-up {
+  animation: slide-up 200ms var(--ease-out) both;
+}
+
+/* Barre de défilement discrète pour les listes internes */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: var(--line-strong);
+  border-radius: var(--radius-full);
 }

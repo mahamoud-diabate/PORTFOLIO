@@ -16,7 +16,7 @@ Portfolio personnel moderne et minimaliste construit avec Next.js 15, TypeScript
 
 - **Bilingue FR / EN** — bascule instantanée, persistance du choix et détection automatique.
 - **Thème clair / sombre** — mode sombre par défaut, mémorisé sans flash de rendu (FOUC).
-- **Palette de commandes** (`Ctrl/Cmd + K`) pour la navigation, la sélection de thème et de langue.
+- **Palette de commandes** (`Ctrl/Cmd + K`) — navigation, thème, langue, CV et courriel, pilotable entièrement au clavier (flèches, `Entrée`, `Échap`, piège à focus).
 - **Actions rapides** — téléchargement direct du CV en PDF et copie du courriel en un clic.
 - **SEO & Référencement** — métadonnées Open Graph / Twitter Card, URL canonique, balisage structuré `schema.org/Person` (JSON-LD), `sitemap.xml` et `robots.txt` générés par Next.js.
 - **Activité GitHub honnête** — les contributions viennent de l'API publique GitHub ; en cas d'indisponibilité, le site affiche un instantané réel versionné dans le dépôt (`src/data/github-contributions.json`), daté explicitement, jamais de données inventées.
@@ -51,7 +51,8 @@ Le site est configuré pour un déploiement continu sur **Vercel** :
 ```
 src/app/          # Layout racine, page principale, styles globaux, sitemap & robots
 src/components/   # Composants UI (Header, CommandPalette, Bento, Sections...)
-src/data/         # Données du portfolio (portfolio-data.ts) + instantané GitHub
+src/lib/          # Contexte de préférences (langue, thème, palette) et rendu du texte enrichi
+src/data/         # Données typées du portfolio (portfolio-data.ts) + instantané GitHub
 public/           # Actifs statiques (CV, favicon, og-image, captures, démos vidéo)
 ```
 

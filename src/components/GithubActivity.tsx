@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { PORTFOLIO_DATA } from "@/data/portfolio-data";
+import { PORTFOLIO_DATA, type Lang } from "@/data/portfolio-data";
 import snapshot from "@/data/github-contributions.json";
+import { usePreferences } from "@/lib/preferences";
 
 interface ContributionDay {
   date: string;
@@ -25,7 +26,7 @@ const SNAPSHOT_DAYS = snapshot.contributions as ContributionDay[];
 const SNAPSHOT_TOTAL = snapshot.total.lastYear;
 const SNAPSHOT_DATE = SNAPSHOT_DAYS[SNAPSHOT_DAYS.length - 1]?.date ?? "";
 
-const formatSnapshotDate = (iso: string, lang: "fr" | "en") => {
+const formatSnapshotDate = (iso: string, lang: Lang) => {
   if (!iso) return "";
   const d = new Date(`${iso}T00:00:00Z`);
   return new Intl.DateTimeFormat(lang === "fr" ? "fr-CA" : "en-CA", {
@@ -36,11 +37,8 @@ const formatSnapshotDate = (iso: string, lang: "fr" | "en") => {
   }).format(d);
 };
 
-interface GithubActivityProps {
-  lang: "fr" | "en";
-}
-
-export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
+export const GithubActivity: React.FC = () => {
+  const { lang } = usePreferences();
   const [contributions, setContributions] = useState<ContributionDay[]>(SNAPSHOT_DAYS);
   const [totalContributions, setTotalContributions] = useState<number>(SNAPSHOT_TOTAL);
   const [isLive, setIsLive] = useState(false);
@@ -177,7 +175,9 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
                       key={dIdx}
                       onMouseEnter={() => setHoveredDay(day)}
                       onMouseLeave={() => setHoveredDay(null)}
-                      title={`${day.count} contributions on ${day.date}`}
+                      title={`${day.count} ${
+                        lang === "fr" ? "contribution(s) le" : "contribution(s) on"
+                      } ${day.date}`}
                       className={`size-[12px] sm:size-[13px] rounded-[2.5px] border transition-transform duration-100 hover:scale-125 cursor-pointer ${getCellColor(
                         day.level
                       )}`}

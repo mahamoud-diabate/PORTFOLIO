@@ -3,12 +3,12 @@
 import React from "react";
 import { Mail, ClipboardCheck, Truck } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio-data";
+import { SectionHeader } from "@/components/SectionHeader";
+import { usePreferences } from "@/lib/preferences";
 
-interface ExperienceSectionProps {
-  lang: "fr" | "en";
-}
+export const ExperienceSection: React.FC = () => {
+  const { lang } = usePreferences();
 
-export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ lang }) => {
   const getJobIcon = (id: string) => {
     switch (id) {
       case "postes-canada":
@@ -22,11 +22,7 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ lang }) =>
 
   return (
     <section className="border-b border-line" id="experience">
-      <header className="border-b border-line bg-surface/30 px-5 py-3.5">
-        <h2 className="font-semibold text-lg text-foreground tracking-tight">
-          {lang === "fr" ? "Expérience" : "Experience"}
-        </h2>
-      </header>
+      <SectionHeader title={lang === "fr" ? "Expérience" : "Experience"} />
 
       <div className="flex flex-col divide-y divide-line">
         {PORTFOLIO_DATA.experience.map((exp) => (
@@ -52,8 +48,8 @@ export const ExperienceSection: React.FC<ExperienceSectionProps> = ({ lang }) =>
             </p>
 
             <div className="flex flex-wrap gap-1.5 pl-10">
-              {exp.tags.map((t, idx) => (
-                <span key={idx} className="rounded-full border border-line bg-surface px-2 py-0.5 font-mono text-[10.5px] text-muted-foreground">
+              {exp.tags[lang].map((t) => (
+                <span key={t} className="rounded-full border border-line bg-surface px-2 py-0.5 font-mono text-[10.5px] text-muted-foreground">
                   {t}
                 </span>
               ))}

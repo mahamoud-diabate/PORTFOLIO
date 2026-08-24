@@ -3,19 +3,15 @@
 import React from "react";
 import { GraduationCap, BookOpen } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio-data";
+import { SectionHeader } from "@/components/SectionHeader";
+import { usePreferences } from "@/lib/preferences";
 
-interface EducationSectionProps {
-  lang: "fr" | "en";
-}
+export const EducationSection: React.FC = () => {
+  const { lang } = usePreferences();
 
-export const EducationSection: React.FC<EducationSectionProps> = ({ lang }) => {
   return (
     <section className="border-b border-line" id="formation">
-      <header className="border-b border-line bg-surface/30 px-5 py-3.5">
-        <h2 className="font-semibold text-lg text-foreground tracking-tight">
-          {lang === "fr" ? "Formation" : "Education"}
-        </h2>
-      </header>
+      <SectionHeader title={lang === "fr" ? "Formation" : "Education"} />
 
       <div className="flex flex-col divide-y divide-line">
         {PORTFOLIO_DATA.education.map((edu, idx) => (
@@ -40,10 +36,10 @@ export const EducationSection: React.FC<EducationSectionProps> = ({ lang }) => {
               {edu.desc[lang]}
             </p>
 
-            {edu.tags.length > 0 && (
+            {edu.tags[lang].length > 0 && (
               <div className="flex flex-wrap gap-1.5 pl-10">
-                {edu.tags.map((t, tIdx) => (
-                  <span key={tIdx} className="rounded-full border border-line bg-surface px-2 py-0.5 font-mono text-[10.5px] text-muted-foreground">
+                {edu.tags[lang].map((t) => (
+                  <span key={t} className="rounded-full border border-line bg-surface px-2 py-0.5 font-mono text-[10.5px] text-muted-foreground">
                     {t}
                   </span>
                 ))}

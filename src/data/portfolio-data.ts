@@ -1,14 +1,20 @@
+export type Lang = "fr" | "en";
+
+/** Valeur déclinée dans les deux langues du site. */
+export type Localized<T = string> = Record<Lang, T>;
+
 export interface Project {
   id: string;
   category: "ai" | "systems" | "desktop" | "web";
-  title: { fr: string; en: string };
-  meta: { fr: string; en: string };
-  badge?: { fr: string; en: string; featured?: boolean };
-  desc: { fr: string; en: string };
+  title: Localized;
+  meta: Localized;
+  badge?: Localized & { featured?: boolean };
+  desc: Localized;
   urlLabel?: string;
   image: string;
   video?: { poster: string; mp4: string; webm: string };
-  highlights: { fr: string[]; en: string[] };
+  highlights: Localized<string[]>;
+  /** Technologies : identiques dans les deux langues. */
   tags: string[];
   links?: {
     code?: string;
@@ -19,25 +25,54 @@ export interface Project {
 export interface Experience {
   id: string;
   company: string;
-  role: { fr: string; en: string };
-  period: { fr: string; en: string };
-  desc: { fr: string; en: string };
-  tags: string[];
+  role: Localized;
+  period: Localized;
+  desc: Localized;
+  tags: Localized<string[]>;
 }
 
 export interface Education {
   id: string;
   school: string;
-  degree: { fr: string; en: string };
-  period: { fr: string; en: string };
-  desc: { fr: string; en: string };
-  tags: string[];
+  degree: Localized;
+  period: Localized;
+  desc: Localized;
+  tags: Localized<string[]>;
 }
 
 export interface StackCategory {
   index: string;
-  name: { fr: string; en: string };
+  name: Localized;
   skills: string[];
+}
+
+export interface Stat {
+  label: Localized;
+  value: string;
+  sub: Localized;
+}
+
+export interface Profile {
+  name: string;
+  tagline: Localized;
+  status: Localized;
+  email: string;
+  altEmail: string;
+  location: string;
+  education: Localized;
+  role: Localized;
+  github: string;
+  linkedin: string;
+}
+
+export interface PortfolioData {
+  profile: Profile;
+  stats: Stat[];
+  about: Localized<string[]>;
+  projects: Project[];
+  stack: StackCategory[];
+  experience: Experience[];
+  education: Education[];
 }
 
 export const PORTFOLIO_DATA = {
@@ -48,8 +83,8 @@ export const PORTFOLIO_DATA = {
       en: "I build reliable, high-performance software from backend to distribution.",
     },
     status: {
-      fr: "Stage recherché — Hiver / Été 2027 · Québec, QC",
-      en: "Seeking Winter / Summer 2027 internship · Quebec City, QC",
+      fr: "Stage recherché — disponible dès maintenant · Québec, QC",
+      en: "Seeking an internship — available now · Quebec City, QC",
     },
     email: "madia262@ulaval.ca",
     altEmail: "diabatemahamoud00@outlook.com",
@@ -67,22 +102,38 @@ export const PORTFOLIO_DATA = {
   },
 
   stats: [
-    { label: { fr: "Tests automatisés", en: "Automated Tests" }, value: "319", sub: "sans dépendance externe" },
-    { label: { fr: "Recherche RAG", en: "RAG Execution" }, value: "100%", sub: "Local & Hors-ligne" },
-    { label: { fr: "Tables relationnelles", en: "Relational Tables" }, value: "23", sub: "SQLite + 33 index" },
-    { label: { fr: "Matériels benchmarkés", en: "Benchmarked Devices" }, value: "440", sub: "Geekbench & 3DMark" },
+    {
+      label: { fr: "Tests automatisés", en: "Automated Tests" },
+      value: "319",
+      sub: { fr: "sans dépendance externe", en: "no external dependency" },
+    },
+    {
+      label: { fr: "Recherche RAG", en: "RAG Execution" },
+      value: "100%",
+      sub: { fr: "local & hors-ligne", en: "local & offline" },
+    },
+    {
+      label: { fr: "Tables relationnelles", en: "Relational Tables" },
+      value: "23",
+      sub: { fr: "SQLite + 33 index", en: "SQLite + 33 indices" },
+    },
+    {
+      label: { fr: "Matériels benchmarkés", en: "Benchmarked Devices" },
+      value: "440",
+      sub: { fr: "Geekbench & 3DMark", en: "Geekbench & 3DMark" },
+    },
   ],
 
   about: {
     fr: [
       "Étudiant au baccalauréat en informatique à l'Université Laval, avec un parcours préalable en analyse quantitative et économie (IUGB).",
       "Je développe des logiciels robustes et bien testés : créateur de [SOPAUTO](https://github.com/mahamoud-diabate/SOPAUTO) (logiciel de gestion commerciale avec 319 tests unitaires et intégration), de [SYNKORTEX](https://github.com/mahamoud-diabate/SYNKORTEX) (pipeline vectoriel hors-ligne avec streaming SSE) et de [Compare-Tech](https://compare-tech-theta.vercel.app) (plateforme full-stack de benchmarks).",
-      "À la recherche d'un **stage en développement logiciel (hiver ou été 2027)** à Québec ou en formule hybride / télétravail.",
+      "À la recherche d'un **stage en développement logiciel, disponible dès maintenant et pour toute session**, à Québec ou en formule hybride / télétravail.",
     ],
     en: [
       "Computer Science student at Université Laval, with prior background in quantitative analysis and economics (IUGB).",
       "I build robust, thoroughly tested software: author of [SOPAUTO](https://github.com/mahamoud-diabate/SOPAUTO) (commercial ERP with 319 automated tests), [SYNKORTEX](https://github.com/mahamoud-diabate/SYNKORTEX) (offline vector pipeline with SSE streaming), and [Compare-Tech](https://compare-tech-theta.vercel.app) (full-stack benchmark platform).",
-      "Actively seeking a **software engineering internship for Winter or Summer 2027** in Quebec City or remote.",
+      "Actively seeking a **software engineering internship, available now and for any term**, in Quebec City or remote.",
     ],
   },
 
@@ -253,7 +304,10 @@ export const PORTFOLIO_DATA = {
         fr: "Traitement des envois de colis et suivi logistique sur les logiciels internes. Gestion des encaissements, balancement quotidien de caisse et contrôle de conformité des expéditions internationales.",
         en: "Parcel logistics tracking and handling via internal software. Cash balance management, point-of-sale transactions, and international customs compliance verification.",
       },
-      tags: ["Systèmes transactionnels", "Logistique", "Conformité douanière"],
+      tags: {
+        fr: ["Systèmes transactionnels", "Logistique", "Conformité douanière"],
+        en: ["Transactional systems", "Logistics", "Customs compliance"],
+      },
     },
     {
       id: "wis",
@@ -264,7 +318,10 @@ export const PORTFOLIO_DATA = {
         fr: "Audit et inventaire physique de stocks en commerces sur terminaux mobiles industriels, avec exigences strictes de cadence et d'exactitude.",
         en: "Physical stock auditing for retail stores using industrial handheld barcode scanners with strict speed and accuracy requirements.",
       },
-      tags: ["Audit de stock", "Terminaux mobiles", "Contrôle qualité"],
+      tags: {
+        fr: ["Audit de stock", "Terminaux mobiles", "Contrôle qualité"],
+        en: ["Inventory auditing", "Handheld terminals", "Quality control"],
+      },
     },
     {
       id: "yango",
@@ -275,7 +332,10 @@ export const PORTFOLIO_DATA = {
         fr: "Supervision d'une flotte de véhicules sur plateforme en ligne : suivi des courses, gestion des comptes et flux de paiements, formation des chauffeurs et résolution des litiges.",
         en: "Transport fleet supervision on digital dispatch platform: trip tracking, payout reconciliation, driver onboarding, and dispute resolution.",
       },
-      tags: ["Gestion d'opérations", "Flux financiers", "Support client"],
+      tags: {
+        fr: ["Gestion d'opérations", "Flux financiers", "Support client"],
+        en: ["Operations management", "Payment flows", "Customer support"],
+      },
     },
   ],
 
@@ -289,7 +349,10 @@ export const PORTFOLIO_DATA = {
         fr: "En cours (cheminement étalé, 18 h/semaine). Cours : programmation C++ (IFT-1006 / GIF-1003), ordinateurs : structure et applications (GIF-1001).",
         en: "In progress (part-time work schedule, 18 hrs/week). Courses: C++ Systems Programming (IFT-1006 / GIF-1003), Computer Structure & Applications (GIF-1001).",
       },
-      tags: ["C++ Moderne", "Structures de données & Algorithmes", "Systèmes & Logique"],
+      tags: {
+        fr: ["C++ moderne", "Structures de données & algorithmes", "Systèmes & logique"],
+        en: ["Modern C++", "Data structures & algorithms", "Systems & logic"],
+      },
     },
     {
       id: "iugb",
@@ -300,8 +363,11 @@ export const PORTFOLIO_DATA = {
         fr: "Solide base en analyse quantitative, économétrie et modélisation de systèmes.",
         en: "Strong foundation in quantitative analysis, econometrics, and systems modeling.",
       },
-      tags: ["Analyse quantitative", "Économétrie", "Modélisation"],
+      tags: {
+        fr: ["Analyse quantitative", "Économétrie", "Modélisation"],
+        en: ["Quantitative analysis", "Econometrics", "Modeling"],
+      },
     },
   ],
-};
+} satisfies PortfolioData;
 

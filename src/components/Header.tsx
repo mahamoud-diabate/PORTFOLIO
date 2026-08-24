@@ -2,40 +2,26 @@
 
 import React, { useState } from "react";
 import { Search, Sun, Moon } from "lucide-react";
+import { usePreferences } from "@/lib/preferences";
 
-interface HeaderProps {
-  lang: "fr" | "en";
-  setLang: (lang: "fr" | "en") => void;
-  theme: "dark" | "light";
-  setTheme: (theme: "dark" | "light") => void;
-  openCmd: () => void;
-}
+const NAV_ITEMS = [
+  { href: "#projets", label: { fr: "Projets", en: "Projects" } },
+  { href: "#experience", label: { fr: "Expérience", en: "Experience" } },
+  { href: "#stack", label: { fr: "Stack", en: "Stack" } },
+  { href: "#formation", label: { fr: "Formation", en: "Education" } },
+  { href: "#contact", label: { fr: "Contact", en: "Contact" } },
+] as const;
 
-export const Header: React.FC<HeaderProps> = ({
-  lang,
-  setLang,
-  theme,
-  setTheme,
-  openCmd,
-}) => {
+export const Header: React.FC = () => {
+  const { lang, theme, toggleLang, toggleTheme, openPalette } = usePreferences();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const toggleTheme = () => {
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
-    document.documentElement.setAttribute("data-theme", nextTheme);
-    localStorage.setItem("portfolio_theme", nextTheme);
-  };
-
-  const toggleLang = () => {
-    const nextLang = lang === "fr" ? "en" : "fr";
-    setLang(nextLang);
-    localStorage.setItem("portfolio_lang", nextLang);
-  };
 
   return (
     <header className="sticky top-0 z-50 flex h-14 items-center justify-between border-b border-line bg-background/85 px-4 backdrop-blur-md">
-      <a href="#top" className="flex items-center gap-2.5 font-semibold text-sm tracking-tight hover:opacity-85 transition-opacity">
+      <a
+        href="#top"
+        className="flex items-center gap-2.5 text-sm font-semibold tracking-tight transition-opacity hover:opacity-85"
+      >
         <span className="flex size-7 items-center justify-center rounded-md border border-line-strong bg-surface font-mono text-xs font-bold text-foreground shadow-sm">
           MD
         </span>
@@ -43,36 +29,31 @@ export const Header: React.FC<HeaderProps> = ({
       </a>
 
       <nav
-        className={`nav-links ${
+        className={
           mobileMenuOpen
-            ? "!flex absolute top-14 left-0 right-0 flex-col bg-background p-4 border-b border-line gap-2"
-            : "hidden md:flex items-center gap-1"
-        }`}
+            ? "absolute left-0 right-0 top-14 flex flex-col gap-2 border-b border-line bg-background p-4"
+            : "hidden items-center gap-1 md:flex"
+        }
         aria-label="Navigation"
       >
-        <a href="#projets" onClick={() => setMobileMenuOpen(false)} className="rounded-md px-2.5 py-1.5 text-xs text-muted-foreground transition hover:bg-surface hover:text-foreground">
-          {lang === "fr" ? "Projets" : "Projects"}
-        </a>
-        <a href="#experience" onClick={() => setMobileMenuOpen(false)} className="rounded-md px-2.5 py-1.5 text-xs text-muted-foreground transition hover:bg-surface hover:text-foreground">
-          {lang === "fr" ? "Expérience" : "Experience"}
-        </a>
-        <a href="#stack" onClick={() => setMobileMenuOpen(false)} className="rounded-md px-2.5 py-1.5 text-xs text-muted-foreground transition hover:bg-surface hover:text-foreground">
-          Stack
-        </a>
-        <a href="#formation" onClick={() => setMobileMenuOpen(false)} className="rounded-md px-2.5 py-1.5 text-xs text-muted-foreground transition hover:bg-surface hover:text-foreground">
-          {lang === "fr" ? "Formation" : "Education"}
-        </a>
-        <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="rounded-md px-2.5 py-1.5 text-xs text-muted-foreground transition hover:bg-surface hover:text-foreground">
-          Contact
-        </a>
+        {NAV_ITEMS.map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
+            onClick={() => setMobileMenuOpen(false)}
+            className="rounded-md px-2.5 py-1.5 text-xs text-muted-foreground transition hover:bg-surface hover:text-foreground"
+          >
+            {item.label[lang]}
+          </a>
+        ))}
       </nav>
 
       <div className="flex items-center gap-1.5">
         <button
-          onClick={openCmd}
+          onClick={openPalette}
           type="button"
-          className="inline-flex items-center gap-1.5 rounded-md border border-line bg-surface px-2.5 py-1 text-xs text-muted-foreground transition hover:bg-surface-hover hover:text-foreground hover:border-line-strong"
-          aria-label="Open command menu"
+          className="inline-flex items-center gap-1.5 rounded-md border border-line bg-surface px-2.5 py-1 text-xs text-muted-foreground transition hover:border-line-strong hover:bg-surface-hover hover:text-foreground"
+          aria-label={lang === "fr" ? "Ouvrir la palette de commandes" : "Open command menu"}
         >
           <Search size={12} />
           <span className="hidden sm:inline">{lang === "fr" ? "Recherche" : "Search"}</span>
@@ -84,8 +65,8 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={toggleLang}
           type="button"
-          className="inline-flex size-8 items-center justify-center rounded-md border border-line bg-surface font-mono text-xs font-semibold text-muted-foreground transition hover:bg-surface-hover hover:text-foreground hover:border-line-strong"
-          aria-label="Toggle language"
+          className="inline-flex size-8 items-center justify-center rounded-md border border-line bg-surface font-mono text-xs font-semibold text-muted-foreground transition hover:border-line-strong hover:bg-surface-hover hover:text-foreground"
+          aria-label={lang === "fr" ? "Passer en anglais" : "Switch to French"}
         >
           {lang === "fr" ? "EN" : "FR"}
         </button>
@@ -93,8 +74,16 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={toggleTheme}
           type="button"
-          className="inline-flex size-8 items-center justify-center rounded-md border border-line bg-surface text-muted-foreground transition hover:bg-surface-hover hover:text-foreground hover:border-line-strong"
-          aria-label="Toggle theme"
+          className="inline-flex size-8 items-center justify-center rounded-md border border-line bg-surface text-muted-foreground transition hover:border-line-strong hover:bg-surface-hover hover:text-foreground"
+          aria-label={
+            theme === "dark"
+              ? lang === "fr"
+                ? "Passer au thème clair"
+                : "Switch to light theme"
+              : lang === "fr"
+                ? "Passer au thème sombre"
+                : "Switch to dark theme"
+          }
         >
           {theme === "dark" ? <Sun size={14} /> : <Moon size={14} />}
         </button>
@@ -102,12 +91,20 @@ export const Header: React.FC<HeaderProps> = ({
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           type="button"
-          className="flex size-8 md:hidden flex-col items-center justify-center gap-1 text-foreground"
-          aria-label="Toggle mobile menu"
+          className="flex size-8 flex-col items-center justify-center gap-1 text-foreground md:hidden"
+          aria-label={lang === "fr" ? "Ouvrir le menu" : "Toggle mobile menu"}
           aria-expanded={mobileMenuOpen}
         >
-          <span className={`block h-[1.5px] w-4 bg-current transition ${mobileMenuOpen ? "rotate-45 translate-y-1" : ""}`} />
-          <span className={`block h-[1.5px] w-4 bg-current transition ${mobileMenuOpen ? "-rotate-45 -translate-y-0.5" : ""}`} />
+          <span
+            className={`block h-[1.5px] w-4 bg-current transition ${
+              mobileMenuOpen ? "translate-y-1 rotate-45" : ""
+            }`}
+          />
+          <span
+            className={`block h-[1.5px] w-4 bg-current transition ${
+              mobileMenuOpen ? "-translate-y-0.5 -rotate-45" : ""
+            }`}
+          />
         </button>
       </div>
     </header>

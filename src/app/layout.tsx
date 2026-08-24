@@ -1,6 +1,30 @@
 import type { Metadata } from "next";
+import { Caveat, Inter, JetBrains_Mono } from "next/font/google";
 import { PORTFOLIO_DATA } from "@/data/portfolio-data";
 import "./globals.css";
+
+// Polices auto-hébergées : supprime la chaîne bloquante vers fonts.googleapis.com
+// et le saut de rendu (FOUT) que provoquait l'@import dans la feuille de styles.
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
+const caveat = Caveat({
+  subsets: ["latin"],
+  weight: ["500", "700"],
+  variable: "--font-caveat",
+  display: "swap",
+});
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL || "https://mahamoud-diabate.vercel.app";
@@ -9,7 +33,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Mahamoud Diabate — Développeur Logiciel & IA",
   description:
-    "Portfolio de Mahamoud Diabate, développeur Logiciel & IA à l'Université Laval. Recherche un stage en développement logiciel pour l'hiver ou l'été 2027.",
+    "Portfolio de Mahamoud Diabate, développeur Logiciel & IA à l'Université Laval. Recherche un stage en développement logiciel, disponible dès maintenant.",
   authors: [{ name: "Mahamoud Diabate", url: "https://github.com/mahamoud-diabate" }],
   keywords: [
     "Mahamoud Diabate",
@@ -43,7 +67,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mahamoud Diabate — Développeur Logiciel & IA",
     description:
-      "Étudiant en informatique à l'Université Laval — Recherche de stage hiver / été 2027. C++, Python, FastAPI, React, Next.js, RAG.",
+      "Étudiant en informatique à l'Université Laval — Recherche de stage, disponible dès maintenant. C++, Python, FastAPI, React, Next.js, RAG.",
     url: siteUrl,
     siteName: "Mahamoud Diabate Portfolio",
     images: [
@@ -61,7 +85,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mahamoud Diabate — Développeur Logiciel & IA",
     description:
-      "Étudiant en informatique à l'Université Laval — Recherche de stage hiver / été 2027. C++, Python, FastAPI, React, Next.js, RAG.",
+      "Étudiant en informatique à l'Université Laval — Recherche de stage, disponible dès maintenant. C++, Python, FastAPI, React, Next.js, RAG.",
     images: ["/og-image.png"],
   },
 };
@@ -77,7 +101,7 @@ const personJsonLd = {
   email: `mailto:${PORTFOLIO_DATA.profile.email}`,
   jobTitle: PORTFOLIO_DATA.profile.role.fr,
   description:
-    "Étudiant au baccalauréat en informatique à l'Université Laval, développeur logiciel et IA. Recherche un stage pour l'hiver ou l'été 2027.",
+    "Étudiant au baccalauréat en informatique à l'Université Laval, développeur logiciel et IA. Recherche un stage, disponible dès maintenant.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Québec",
@@ -106,7 +130,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" data-theme="dark" className="scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="fr"
+      data-theme="dark"
+      className={`${inter.variable} ${jetBrainsMono.variable} ${caveat.variable} scroll-smooth`}
+      suppressHydrationWarning
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{

@@ -1,6 +1,5 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { PreferencesProvider } from "@/lib/preferences";
 import { Header } from "@/components/Header";
 import { ProfileHeader } from "@/components/ProfileHeader";
 import { IsometricBlueprint } from "@/components/IsometricBlueprint";
@@ -18,106 +17,51 @@ import { CommandPalette } from "@/components/CommandPalette";
 import { Toast } from "@/components/Toast";
 
 export default function Home() {
-  const [lang, setLang] = useState<"fr" | "en">("fr");
-  const [theme, setTheme] = useState<"dark" | "light">("dark");
-  const [cmdOpen, setCmdOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  useEffect(() => {
-    const savedLang = localStorage.getItem("portfolio_lang");
-    if (savedLang === "en" || savedLang === "fr") {
-      setLang(savedLang);
-    } else {
-      const browserLang = (navigator.language || "").toLowerCase();
-      if (browserLang.startsWith("en")) setLang("en");
-    }
-
-    // Le script d'amorçage du layout a déjà résolu le thème (préférence
-    // enregistrée, sinon réglage du système) : on s'aligne sur le résultat.
-    const applied = document.documentElement.getAttribute("data-theme");
-    if (applied === "light" || applied === "dark") {
-      setTheme(applied);
-    }
-  }, []);
-
-  // Garde l'attribut lang du document aligné sur la langue affichée
-  // (lecteurs d'écran, moteurs de recherche, césure typographique).
-  useEffect(() => {
-    document.documentElement.lang = lang;
-  }, [lang]);
-
-  const showToast = (message: string) => {
-    setToastMessage(message);
-    setTimeout(() => setToastMessage(null), 2500);
-  };
-
-  const handleCopy = (text: string) => {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast(
-          lang === "fr"
-            ? "Adresse courriel copiée !"
-            : "Email address copied!"
-        );
-      });
-    }
-  };
-
   return (
-    <div className="relative z-10 mx-auto min-h-screen max-w-container border-x border-line bg-background shadow-2xl" id="top">
-      <Header
-        lang={lang}
-        setLang={setLang}
-        theme={theme}
-        setTheme={setTheme}
-        openCmd={() => setCmdOpen(true)}
-      />
+    <PreferencesProvider>
+      <div
+        className="relative z-10 mx-auto min-h-screen max-w-container border-x border-line bg-background shadow-2xl"
+        id="top"
+      >
+        <Header />
 
-      <main>
-        <ProfileHeader lang={lang} />
-        <IsometricBlueprint />
-        <OverviewBento lang={lang} onCopy={handleCopy} />
-        <SocialBar lang={lang} />
-        <GithubActivity lang={lang} />
+        <main>
+          <ProfileHeader />
+          <IsometricBlueprint />
+          <OverviewBento />
+          <SocialBar />
+          <GithubActivity />
 
-        <div className="stripe-divider" />
+          <div className="stripe-divider" />
 
-        <HelloSection lang={lang} />
+          <HelloSection />
 
-        <div className="stripe-divider" />
+          <div className="stripe-divider" />
 
-        <ProjectsSection lang={lang} />
+          <ProjectsSection />
 
-        <div className="stripe-divider" />
+          <div className="stripe-divider" />
 
-        <StackSection lang={lang} />
+          <StackSection />
 
-        <div className="stripe-divider" />
+          <div className="stripe-divider" />
 
-        <ExperienceSection lang={lang} />
+          <ExperienceSection />
 
-        <div className="stripe-divider" />
+          <div className="stripe-divider" />
 
-        <EducationSection lang={lang} />
+          <EducationSection />
 
-        <div className="stripe-divider" />
+          <div className="stripe-divider" />
 
-        <ContactSection lang={lang} onCopy={handleCopy} />
+          <ContactSection />
 
-        <FooterBlueprint lang={lang} />
-      </main>
+          <FooterBlueprint />
+        </main>
 
-      <CommandPalette
-        isOpen={cmdOpen}
-        onClose={() => setCmdOpen(false)}
-        lang={lang}
-        setLang={setLang}
-        theme={theme}
-        setTheme={setTheme}
-        onCopy={handleCopy}
-      />
-
-      <Toast message={toastMessage} />
-    </div>
+        <CommandPalette />
+        <Toast />
+      </div>
+    </PreferencesProvider>
   );
 }

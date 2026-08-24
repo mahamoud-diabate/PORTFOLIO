@@ -1,42 +1,44 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Briefcase, GraduationCap, MapPin, Mail, Copy, Check } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio-data";
+import { usePreferences } from "@/lib/preferences";
 
-interface OverviewBentoProps {
-  lang: "fr" | "en";
-  onCopy: (text: string) => void;
-}
+const TIME_ZONE = "America/Toronto";
 
-export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) => {
+// Les formateurs Intl sont coûteux : on les crée une seule fois pour le module
+// au lieu d'en instancier deux par battement d'horloge.
+const clockFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: TIME_ZONE,
+  hour: "numeric",
+  minute: "2-digit",
+  second: "2-digit",
+  hour12: true,
+});
+
+const partsFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: TIME_ZONE,
+  hour: "numeric",
+  minute: "numeric",
+  hour12: false,
+});
+
+export const OverviewBento: React.FC = () => {
+  const { lang, copyEmail } = usePreferences();
   const [timeString, setTimeString] = useState("--:--");
   const [hourAngle, setHourAngle] = useState(0);
   const [minuteAngle, setMinuteAngle] = useState(0);
   const [copied, setCopied] = useState(false);
+  const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const updateClock = () => {
       try {
         const now = new Date();
-        const formatter = new Intl.DateTimeFormat("en-US", {
-          timeZone: "America/Toronto",
-          hour: "numeric",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: true,
-        });
-        setTimeString(formatter.format(now));
+        setTimeString(clockFormatter.format(now));
 
-        // Calcul précis des angles des aiguilles
-        const parts = new Intl.DateTimeFormat("en-US", {
-          timeZone: "America/Toronto",
-          hour: "numeric",
-          minute: "numeric",
-          second: "numeric",
-          hour12: false,
-        }).formatToParts(now);
-
+        const parts = partsFormatter.formatToParts(now);
         const hours = parseInt(parts.find((p) => p.type === "hour")?.value || "0", 10);
         const minutes = parseInt(parts.find((p) => p.type === "minute")?.value || "0", 10);
 
@@ -59,11 +61,16 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => () => {
+    if (copyTimer.current) clearTimeout(copyTimer.current);
+  }, []);
+
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
-    onCopy(PORTFOLIO_DATA.profile.email);
+    copyEmail();
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (copyTimer.current) clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => setCopied(false), 2000);
   };
 
   const radH = ((hourAngle - 90) * Math.PI) / 180;
@@ -164,7 +171,7 @@ export const OverviewBento: React.FC<OverviewBentoProps> = ({ lang, onCopy }) =>
               {stat.label[lang]}
             </div>
             <div className="font-mono text-[10px] text-muted-foreground truncate">
-              {stat.sub}
+              {stat.sub[lang]}
             </div>
           </div>
         ))}

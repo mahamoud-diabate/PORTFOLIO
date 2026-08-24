@@ -1,21 +1,24 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Mail, Copy, Check, ArrowRight } from "lucide-react";
 import { PORTFOLIO_DATA } from "@/data/portfolio-data";
+import { usePreferences } from "@/lib/preferences";
 
-interface ContactSectionProps {
-  lang: "fr" | "en";
-  onCopy: (text: string) => void;
-}
-
-export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onCopy }) => {
+export const ContactSection: React.FC = () => {
+  const { lang, copyEmail } = usePreferences();
   const [copied, setCopied] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
 
   const handleCopy = () => {
-    onCopy(PORTFOLIO_DATA.profile.email);
+    copyEmail();
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (timer.current) clearTimeout(timer.current);
+    timer.current = setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -26,8 +29,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ lang, onCopy }) 
 
       <p className="max-w-xl text-sm text-muted-foreground leading-relaxed mb-5">
         {lang === "fr"
-          ? "Je recherche un stage en développement logiciel pour l'été 2027. N'hésitez pas à m'écrire directement par courriel — je réponds sous 48 heures."
-          : "I am looking for a software engineering internship for Summer 2027. Feel free to reach out directly via email — I reply within 48 hours."}
+          ? "Je recherche un stage en développement logiciel et je suis disponible dès maintenant, pour toute session. N'hésitez pas à m'écrire directement par courriel — je réponds sous 48 heures."
+          : "I am looking for a software engineering internship and I am available now, for any term. Feel free to reach out directly via email — I reply within 48 hours."}
       </p>
 
       <div className="flex flex-wrap items-center gap-3">

@@ -2,12 +2,11 @@
 
 import React from "react";
 import { ArrowUp } from "lucide-react";
+import { usePreferences } from "@/lib/preferences";
 
-interface FooterBlueprintProps {
-  lang: "fr" | "en";
-}
+export const FooterBlueprint: React.FC = () => {
+  const { lang } = usePreferences();
 
-export const FooterBlueprint: React.FC<FooterBlueprintProps> = ({ lang }) => {
   return (
     <>
       {/* Bottom Isometric Architectural Floor Grid (Fig. 2.) */}
