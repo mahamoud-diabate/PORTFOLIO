@@ -11,13 +11,13 @@ export default function NotFound() {
         Page introuvable
       </h1>
       <p className="text-sm text-muted-foreground max-w-md mb-6 font-mono text-xs">
-        La ressource demandée n'existe pas ou a été déplacée.
+        La ressource demandée n&apos;existe pas ou a été déplacée.
       </p>
       <Link
         href="/"
         className="rounded-md border border-line-strong bg-surface px-4 py-2 text-xs font-medium text-foreground hover:bg-surface-hover transition"
       >
-        Retourner à l'accueil
+        Retourner à l&apos;accueil
       </Link>
     </div>
   );

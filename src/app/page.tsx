@@ -40,6 +40,12 @@ export default function Home() {
     }
   }, []);
 
+  // Garde l'attribut lang du document aligné sur la langue affichée
+  // (lecteurs d'écran, moteurs de recherche, césure typographique).
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const showToast = (message: string) => {
     setToastMessage(message);
     setTimeout(() => setToastMessage(null), 2500);

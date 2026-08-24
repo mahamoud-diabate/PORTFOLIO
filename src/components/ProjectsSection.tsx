@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ExternalLink, Box, Activity, Cpu, X } from "lucide-react";
 import { PORTFOLIO_DATA, Project } from "@/data/portfolio-data";
 
@@ -9,6 +9,67 @@ interface ProjectsSectionProps {
 }
 
 type FilterType = "all" | "systems" | "ai" | "web";
+
+interface ProjectVideoProps {
+  video: NonNullable<Project["video"]>;
+  label: string;
+  title: string;
+  onExpand: () => void;
+}
+
+// La vidéo n'est téléchargée qu'une fois la carte visible (preload="none" +
+// IntersectionObserver) et reste sur son poster si l'utilisateur a demandé une
+// réduction des animations.
+const ProjectVideo: React.FC<ProjectVideoProps> = ({ video, label, title, onExpand }) => {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const reduced =
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) return;
+
+    if (typeof IntersectionObserver === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const play = el.play();
+            if (play && typeof play.catch === "function") play.catch(() => {});
+          } else if (!el.paused) {
+            el.pause();
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      className="aspect-video w-full cursor-pointer object-cover"
+      onClick={onExpand}
+      title={title}
+      muted
+      loop
+      playsInline
+      preload="none"
+      poster={video.poster}
+      aria-label={label}
+    >
+      <source src={video.webm} type="video/webm" />
+      <source src={video.mp4} type="video/mp4" />
+    </video>
+  );
+};
 
 export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
   const [filter, setFilter] = useState<FilterType>("all");
@@ -120,29 +181,12 @@ export const ProjectsSection: React.FC<ProjectsSectionProps> = ({ lang }) => {
               {p.image ? (
                 <div className="overflow-hidden rounded-lg border border-line bg-background">
                   {p.video ? (
-                    <video
-                      className="aspect-video w-full cursor-pointer object-cover"
-                      onClick={() => setLightbox(p as Project)}
+                    <ProjectVideo
+                      video={p.video}
+                      label={p.title[lang]}
                       title={lang === "fr" ? "Agrandir la démo" : "Expand demo"}
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      preload="auto"
-                      poster={p.video.poster}
-                      aria-label={p.title[lang]}
-                      ref={(el) => {
-                        if (el) {
-                          el.muted = true;
-                          el.defaultMuted = true;
-                          const play = el.play();
-                          if (play && typeof play.catch === "function") play.catch(() => {});
-                        }
-                      }}
-                    >
-                      <source src={p.video.webm} type="video/webm" />
-                      <source src={p.video.mp4} type="video/mp4" />
-                    </video>
+                      onExpand={() => setLightbox(p as Project)}
+                    />
                   ) : (
                     <img
                       src={p.image}

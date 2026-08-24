@@ -18,7 +18,9 @@ Portfolio personnel moderne et minimaliste construit avec Next.js 15, TypeScript
 - **Thème clair / sombre** — mode sombre par défaut, mémorisé sans flash de rendu (FOUC).
 - **Palette de commandes** (`Ctrl/Cmd + K`) pour la navigation, la sélection de thème et de langue.
 - **Actions rapides** — téléchargement direct du CV en PDF et copie du courriel en un clic.
-- **SEO & Référencement** — métadonnées dynamiques, Open Graph et balisage structuré.
+- **SEO & Référencement** — métadonnées Open Graph / Twitter Card, URL canonique, balisage structuré `schema.org/Person` (JSON-LD), `sitemap.xml` et `robots.txt` générés par Next.js.
+- **Activité GitHub honnête** — les contributions viennent de l'API publique GitHub ; en cas d'indisponibilité, le site affiche un instantané réel versionné dans le dépôt (`src/data/github-contributions.json`), daté explicitement, jamais de données inventées.
+- **Performance & accessibilité** — vidéos de démo chargées à la demande (`preload="none"` + IntersectionObserver), attribut `lang` du document synchronisé avec la langue affichée, prise en charge de `prefers-reduced-motion`.
 
 ## Développement local
 
@@ -31,6 +33,9 @@ npm run dev
 
 # Vérification du build de production
 npm run build
+
+# Analyse statique (ESLint 9, config plate)
+npm run lint
 ```
 
 ## Déploiement
@@ -44,10 +49,10 @@ Le site est configuré pour un déploiement continu sur **Vercel** :
 ## Structure du projet
 
 ```
-src/app/          # Layout racine, page principale et styles globaux
+src/app/          # Layout racine, page principale, styles globaux, sitemap & robots
 src/components/   # Composants UI (Header, CommandPalette, Bento, Sections...)
-src/data/         # Données centralisées du portfolio (portfolio-data.ts)
-public/           # Actifs statiques (CV, favicon, og-image, captures)
+src/data/         # Données du portfolio (portfolio-data.ts) + instantané GitHub
+public/           # Actifs statiques (CV, favicon, og-image, captures, démos vidéo)
 ```
 
 Toutes les informations (profil, projets, compétences, expériences) sont centralisées dans [`src/data/portfolio-data.ts`](src/data/portfolio-data.ts).

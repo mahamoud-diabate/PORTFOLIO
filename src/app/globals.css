@@ -195,3 +195,19 @@ body::before {
 .heatmap-cell.lvl-2 { background: #006d32; }
 .heatmap-cell.lvl-3 { background: #26a641; }
 .heatmap-cell.lvl-4 { background: #39d353; }
+
+/* Respect de la préférence système « réduire les animations » */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

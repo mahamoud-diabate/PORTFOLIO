@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { PORTFOLIO_DATA } from "@/data/portfolio-data";
+import snapshot from "@/data/github-contributions.json";
 
 interface ContributionDay {
   date: string;
@@ -14,63 +15,68 @@ interface ApiResponse {
     [year: string]: number;
     lastYear: number;
   };
-  contributions: Array<{
-    date: string;
-    count: number;
-    level: number;
-  }>;
+  contributions: ContributionDay[];
 }
+
+// Instantané réel des contributions, versionné dans le dépôt. Il sert de rendu
+// initial et de repli lorsque l'API publique est indisponible : aucune donnée
+// n'est inventée, on signale simplement la date du relevé.
+const SNAPSHOT_DAYS = snapshot.contributions as ContributionDay[];
+const SNAPSHOT_TOTAL = snapshot.total.lastYear;
+const SNAPSHOT_DATE = SNAPSHOT_DAYS[SNAPSHOT_DAYS.length - 1]?.date ?? "";
+
+const formatSnapshotDate = (iso: string, lang: "fr" | "en") => {
+  if (!iso) return "";
+  const d = new Date(`${iso}T00:00:00Z`);
+  return new Intl.DateTimeFormat(lang === "fr" ? "fr-CA" : "en-CA", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(d);
+};
 
 interface GithubActivityProps {
   lang: "fr" | "en";
 }
 
 export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
-  const [contributions, setContributions] = useState<ContributionDay[]>([]);
-  const [totalContributions, setTotalContributions] = useState<number>(415);
-  const [loading, setLoading] = useState(true);
+  const [contributions, setContributions] = useState<ContributionDay[]>(SNAPSHOT_DAYS);
+  const [totalContributions, setTotalContributions] = useState<number>(SNAPSHOT_TOTAL);
+  const [isLive, setIsLive] = useState(false);
   const [hoveredDay, setHoveredDay] = useState<ContributionDay | null>(null);
 
   useEffect(() => {
     let isMounted = true;
+    const controller = new AbortController();
 
     async function fetchContributions() {
       try {
         const username = "mahamoud-diabate";
         const res = await fetch(
-          `https://github-contributions-api.jogruber.de/v4/${username}?y=last`
+          `https://github-contributions-api.jogruber.de/v4/${username}?y=last`,
+          { signal: controller.signal }
         );
         if (!res.ok) throw new Error("Failed to fetch");
         const data: ApiResponse = await res.json();
 
         if (isMounted && data.contributions && data.contributions.length > 0) {
           setContributions(data.contributions);
-          setTotalContributions(data.total?.lastYear || data.contributions.reduce((acc, curr) => acc + curr.count, 0));
+          setTotalContributions(
+            data.total?.lastYear ??
+              data.contributions.reduce((acc, curr) => acc + curr.count, 0)
+          );
+          setIsLive(true);
         }
-      } catch (err) {
-        // Fallback généré avec 52 semaines représentatives
-        if (isMounted) {
-          const fallbackDays: ContributionDay[] = [];
-          const now = new Date();
-          for (let i = 364; i >= 0; i--) {
-            const d = new Date(now);
-            d.setDate(d.getDate() - i);
-            const dateStr = d.toISOString().split("T")[0];
-            // quelques contributions simulées pour l'esthétique si l'API est indisponible
-            const count = (i % 7 === 2 || i % 13 === 0 || i % 29 === 0) ? Math.floor((i % 5) + 1) : 0;
-            const level = count === 0 ? 0 : count > 4 ? 4 : count > 2 ? 3 : count > 1 ? 2 : 1;
-            fallbackDays.push({ date: dateStr, count, level });
-          }
-          setContributions(fallbackDays);
-        }
-      } finally {
-        if (isMounted) setLoading(false);
+      } catch {
+        // API indisponible : on conserve l'instantané réel déjà affiché.
       }
     }
 
     fetchContributions();
     return () => {
       isMounted = false;
+      controller.abort();
     };
   }, []);
 
@@ -191,7 +197,11 @@ export const GithubActivity: React.FC<GithubActivityProps> = ({ lang }) => {
           <span>
             {hoveredDay
               ? `${hoveredDay.count} ${lang === "fr" ? "contribution(s) le" : "contribution(s) on"} ${hoveredDay.date}`
-              : `${totalContributions} contributions · `}
+              : isLive
+              ? `${totalContributions} contributions · `
+              : `${totalContributions} contributions · ${
+                  lang === "fr" ? "relevé du" : "snapshot of"
+                } ${formatSnapshotDate(SNAPSHOT_DATE, lang)} · `}
           </span>
           {!hoveredDay && (
             <a
